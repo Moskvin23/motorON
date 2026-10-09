@@ -197,7 +197,7 @@ function Booking() {
             </div>
           ) : (
             <form onSubmit={submit} noValidate>
-              <div className="row2">
+              <div className="row2 car">
                 <label className="fld"><span>{b.car} *</span><input value={f.car} onChange={set('car')} placeholder={b.carPh} aria-invalid={!!err.car} />{err.car && <small>{err.car}</small>}</label>
                 <label className="fld"><span>{b.year}</span><input value={f.year} onChange={set('year')} inputMode="numeric" maxLength={4} placeholder="2019" /></label>
               </div>
