@@ -1,7 +1,8 @@
 // Small inline line icons (no icon font, no external requests).
 const P: Record<string, string> = {
-  engine: 'M4 10h2V8h3V6h6v2h2l2 2h1v6h-1l-2 2h-2v1H9v-1H6v-2H4v-6Z M2 12h2 M20 12h2',
-  belt: 'M7 7a5 5 0 1 1 0 10 M17 7a5 5 0 1 1 0 10 M7 7h10 M7 17h10',
+  engine: 'M8 5h6 M11 5v3 M6 8h9l2 2h2V8h3v9h-3v-2h-2l-2 3H8l-2-2v-2H4v-3h2V8Z M9 12h4',
+  shock: 'M12 2v3 M12 19v3 M8 5h8 M8 19h8 M8 7.5l8 1.6 M8 10.5l8 1.6 M8 13.5l8 1.6 M8 16.5l8 1.4',
+  belt: 'M7 4a4 4 0 1 0 0 8a4 4 0 1 0 0-8Z M17 12a4 4 0 1 0 0 8a4 4 0 1 0 0-8Z M7 7a1 1 0 1 0 0 2a1 1 0 1 0 0-2Z M17 15a1 1 0 1 0 0 2a1 1 0 1 0 0-2Z M4.5 11.1l10 8 M9.5 4.9l10 8',
   wheel: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18Z M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8Z M12 3v5 M12 16v5 M3 12h5 M16 12h5',
   oil: 'M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z',
   bolt: 'M13 2 4 14h7l-1 8 9-12h-7l1-8Z',
@@ -27,16 +28,19 @@ export default function Icon({ name, size = 22, fill = false }: { name: string; 
   );
 }
 
-/** MotorON mark: a power button, like on their Instagram avatar. */
-export function Logo() {
+/** MotorON wordmark: "MOTOR" + power icon in place of the O + "N", "AUTO SERVICE" underneath (from the shop's signage). */
+export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <span className="logo">
-      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="18" className="logo-ring" />
-        <path d="M14 13.5a9 9 0 1 0 12 0" fill="none" stroke="var(--brand)" strokeWidth="3.2" strokeLinecap="round" />
-        <path d="M20 9v10" stroke="var(--brand)" strokeWidth="3.2" strokeLinecap="round" />
-      </svg>
-      <b>MOTOR<i>ON</i></b>
+    <span className={`logo${compact ? ' compact' : ''}`} aria-label="MotorON Auto Service">
+      <span className="wm">
+        MOTOR
+        <svg className="pwr" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7.2 6.6a8 8 0 1 0 9.6 0" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+          <path d="M12 2.5v8" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+        </svg>
+        N
+      </span>
+      {!compact && <small>AUTO SERVICE</small>}
     </span>
   );
 }

@@ -68,7 +68,7 @@ function Hero() {
             <div className="g-label"><b>ON</b><span>Briukhovychi</span></div>
           </div>
           <div className="chip c1"><Icon name="engine" size={18} /> {t.services.items[0].t}</div>
-          <div className="chip c2"><Icon name="wheel" size={18} /> {t.services.items[2].t}</div>
+          <div className="chip c2"><Icon name="shock" size={18} /> {t.services.items[2].t}</div>
           <div className="chip c3"><Icon name="bolt" size={18} /> {t.services.items[4].t}</div>
           <div className="chip c4"><Icon name="star" size={16} fill /> 5.0 Google</div>
         </div>

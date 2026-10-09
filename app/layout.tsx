@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next';
-import { Manrope } from 'next/font/google';
+import { Manrope, Michroma } from 'next/font/google';
 import { PrefsProvider, themeScript } from '@/components/Prefs';
 import { GEO, INSTAGRAM, PHONE } from '@/lib/i18n';
 import './globals.css';
 
 const font = Manrope({ subsets: ['latin', 'cyrillic'], display: 'swap' });
+const wordmark = Michroma({ weight: '400', subsets: ['latin'], display: 'swap', variable: '--font-wordmark' });
 
 export const metadata: Metadata = {
   title: 'MotorON СТО Брюховичі — ремонт двигунів, ГРМ, ходової, ТО',
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={font.className}><PrefsProvider>{children}</PrefsProvider></body>
+      <body className={`${font.className} ${wordmark.variable}`}><PrefsProvider>{children}</PrefsProvider></body>
     </html>
   );
 }

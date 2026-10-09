@@ -32,7 +32,7 @@ const uk = {
     items: [
       { icon: 'engine', t: 'Двигун', d: 'Діагностика, ремонт і капітальний ремонт двигунів, усунення стуків, вібрацій і втрат потужності.' },
       { icon: 'belt', t: 'ГРМ', d: 'Заміна ременя або ланцюга ГРМ, роликів і помпи — за регламентом або при перших симптомах.' },
-      { icon: 'wheel', t: 'Ходова', d: 'Пошук сторонніх звуків, заміна півосей, амортизаторів, сайлентблоків, кульових опор.' },
+      { icon: 'shock', t: 'Ходова', d: 'Пошук сторонніх звуків, заміна півосей, амортизаторів, сайлентблоків, кульових опор.' },
       { icon: 'oil', t: 'Технічне обслуговування', d: 'Заміна масла й фільтрів, перевірка рідин і гальм, огляд ходової під час кожного ТО.' },
       { icon: 'bolt', t: 'Автоелектрика', d: 'Діагностика помилок, проводка, стартер, генератор, датчики та освітлення.' },
       { icon: 'scan', t: 'Комп’ютерна діагностика', d: 'Зчитування помилок, аналіз параметрів і зрозумілий звіт про стан авто.' },
@@ -121,7 +121,7 @@ const en: Dict = {
     items: [
       { icon: 'engine', t: 'Engine', d: 'Diagnostics, repair and rebuilds; knocks, vibrations and loss of power.' },
       { icon: 'belt', t: 'Timing belt / chain', d: 'Belt or chain replacement with tensioners and water pump — on schedule or at the first symptoms.' },
-      { icon: 'wheel', t: 'Suspension', d: 'Tracking down noises, replacing drive shafts, shock absorbers, bushings and ball joints.' },
+      { icon: 'shock', t: 'Suspension', d: 'Tracking down noises, replacing drive shafts, shock absorbers, bushings and ball joints.' },
       { icon: 'oil', t: 'Maintenance', d: 'Oil and filter changes, fluids and brakes check, suspension inspection at every service.' },
       { icon: 'bolt', t: 'Auto electrics', d: 'Fault codes, wiring, starter, alternator, sensors and lighting.' },
       { icon: 'scan', t: 'Computer diagnostics', d: 'Reading fault codes, live data analysis and a clear report on your car.' },
