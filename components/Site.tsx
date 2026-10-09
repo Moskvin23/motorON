@@ -184,16 +184,22 @@ function Booking() {
   const [f, setF] = useState({ car: '', year: '', service: '', problem: '', date: '', part: '', name: '', phone: '' });
   const [err, setErr] = useState<Record<string, string>>({});
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
-  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setF({ ...f, [k]: e.target.value });
+  // Year accepts digits only; phone keeps digits and + ( ) - spaces.
+  const clean: Partial<Record<keyof typeof f, (v: string) => string>> = { year: (v) => v.replace(/\D/g, ''), phone: (v) => v.replace(/[^\d+()\- ]/g, '') };
+  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setF({ ...f, [k]: clean[k] ? clean[k]!(e.target.value) : e.target.value });
+    if (err[k]) setErr({ ...err, [k]: '' });
+  };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const er: Record<string, string> = {};
-    if (!f.car.trim()) er.car = b.errCar;
-    if (f.name.trim().length < 2) er.name = b.errName;
-    if (f.phone.replace(/\D/g, '').length < 10) er.phone = b.errPhone;
+    if (!f.car.trim()) er.car = 'errCar';
+    if (f.name.trim().length < 2) er.name = 'errName';
+    const digits = f.phone.replace(/\D/g, '').length;
+    if (digits < 10 || digits > 12) er.phone = 'errPhone';
     setErr(er);
-    if (Object.keys(er).length) return;
+    if (Object.keys(er).length) { document.querySelector<HTMLElement>(`[name="${Object.keys(er)[0]}"]`)?.focus(); return; }
     setState('sending');
     // Production: POST to a serverless function that forwards the request to the mechanics' Telegram chat.
     setTimeout(() => setState('done'), 900);
@@ -214,25 +220,25 @@ function Booking() {
               <span className="ok-ico"><Icon name="check" size={30} /></span>
               <h3>{b.okTitle}</h3>
               <p>{b.okText}</p>
-              <button className="btn ghost" onClick={() => { setF({ car: '', year: '', service: '', problem: '', date: '', part: '', name: '', phone: '' }); setState('idle'); }}>{b.again}</button>
+              <button className="btn ghost" onClick={() => { setF({ car: '', year: '', service: '', problem: '', date: '', part: '', name: '', phone: '' }); setErr({}); setState('idle'); }}>{b.again}</button>
             </div>
           ) : (
             <form onSubmit={submit} noValidate>
               <div className="row2 car">
-                <label className="fld"><span>{b.car} *</span><input value={f.car} onChange={set('car')} placeholder={b.carPh} aria-invalid={!!err.car} />{err.car && <small>{err.car}</small>}</label>
+                <label className="fld"><span>{b.car} *</span><input name="car" value={f.car} onChange={set('car')} placeholder={b.carPh} aria-invalid={!!err.car} />{err.car && <small>{b[err.car as 'errCar']}</small>}</label>
                 <label className="fld"><span>{b.year}</span><input value={f.year} onChange={set('year')} inputMode="numeric" maxLength={4} placeholder="2019" /></label>
               </div>
               <label className="fld"><span>{b.service}</span>
                 <select value={f.service} onChange={set('service')}>
                   <option value="">{b.choose}</option>
-                  {t.services.items.map((s) => <option key={s.t}>{s.t}</option>)}
-                  <option>{b.other}</option>
+                  {t.services.items.map((s, i) => <option key={i} value={String(i)}>{s.t}</option>)}
+                  <option value="other">{b.other}</option>
                 </select>
               </label>
               <label className="fld"><span>{b.problem}</span><textarea rows={3} value={f.problem} onChange={set('problem')} placeholder={b.problemPh} /></label>
               <div className="row2">
-                <label className="fld"><span>{b.name} *</span><input value={f.name} onChange={set('name')} autoComplete="name" aria-invalid={!!err.name} />{err.name && <small>{err.name}</small>}</label>
-                <label className="fld"><span>{b.phone} *</span><input value={f.phone} onChange={set('phone')} type="tel" autoComplete="tel" placeholder={b.phonePh} aria-invalid={!!err.phone} />{err.phone && <small>{err.phone}</small>}</label>
+                <label className="fld"><span>{b.name} *</span><input name="name" value={f.name} onChange={set('name')} autoComplete="name" aria-invalid={!!err.name} />{err.name && <small>{b[err.name as 'errCar']}</small>}</label>
+                <label className="fld"><span>{b.phone} *</span><input name="phone" value={f.phone} onChange={set('phone')} type="tel" autoComplete="tel" placeholder={b.phonePh} aria-invalid={!!err.phone} />{err.phone && <small>{b[err.phone as 'errCar']}</small>}</label>
               </div>
               <div className="fld"><span>{b.date}</span><DayPicker day={f.date} part={f.part} onDay={(v) => setF({ ...f, date: v })} onPart={(v) => setF({ ...f, part: v })} /></div>
               <button className="btn lg full" disabled={state === 'sending'}>{state === 'sending' ? b.sending : b.submit}</button>

@@ -232,6 +232,23 @@ form { display: flex; flex-direction: column; gap: 14px; }
 .dp-parts button:hover { border-color: var(--brand); color: var(--text); }
 .dp-parts button.on { background: var(--brand-soft); border-color: var(--brand); color: var(--brand); }
 
+.dp-other { border-style: dashed !important; }
+.dp-other .ico { font-size: 18px; color: var(--brand); }
+.dp-other.open { border-color: var(--brand) !important; }
+.dp-cal { border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: var(--bg); max-width: 340px; }
+.dp-cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.dp-cal-head b { font-size: 15px; }
+.dp-other span { text-transform: none !important; }
+.dp-cal-head button { width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--line); background: transparent; font-size: 20px; color: var(--text); }
+.dp-cal-head button:disabled { opacity: .3; cursor: default; }
+.dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+.dp-grid i { font-style: normal; font-size: 11px; font-weight: 700; color: var(--faint); text-transform: capitalize; padding: 2px 0 4px; }
+.dp-grid button { aspect-ratio: 1; border-radius: 10px; border: 1px solid transparent; background: transparent; font-size: 14px; font-weight: 600; color: var(--text); }
+.dp-grid button:hover:not(:disabled) { border-color: var(--brand); }
+.dp-grid button.today { border-color: var(--line); }
+.dp-grid button.on { background: var(--brand); color: var(--brand-ink); }
+.dp-grid button:disabled { color: var(--faint); opacity: .4; text-decoration: line-through; cursor: not-allowed; }
+
 /* faq & contacts */
 .faq { border: 1px solid var(--line); border-radius: 14px; background: var(--card); margin-bottom: 10px; }
 .faq summary { list-style: none; cursor: pointer; padding: 18px 22px; font-weight: 700; font-size: 17px; display: flex; justify-content: space-between; gap: 16px; }

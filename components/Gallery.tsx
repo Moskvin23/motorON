@@ -31,6 +31,8 @@ export default function Gallery() {
   const { t } = usePrefs();
   const g = t.gallery;
   const [open, setOpen] = useState<number | null>(null);
+  const [x0, setX0] = useState<number | null>(null);
+  const step = (d: number) => setOpen((i) => (i! + d + ITEMS.length) % ITEMS.length);
 
   useEffect(() => {
     if (open === null) return;
@@ -64,7 +66,9 @@ export default function Gallery() {
       </div>
 
       {cur && (
-        <div className="lb" role="dialog" aria-modal="true" aria-label={cap(cur).t} onClick={() => setOpen(null)}>
+        <div className="lb" role="dialog" aria-modal="true" aria-label={cap(cur).t} onClick={() => setOpen(null)}
+          onTouchStart={(e) => setX0(e.touches[0].clientX)}
+          onTouchEnd={(e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; setX0(null); if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); }}>
           <button className="lb-x" aria-label="Close" onClick={() => setOpen(null)}><Icon name="close" size={22} /></button>
           <button className="lb-nav prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setOpen((open! - 1 + ITEMS.length) % ITEMS.length); }}>‹</button>
           <figure onClick={(e) => e.stopPropagation()}>
