@@ -1,6 +1,6 @@
 'use client';
 // BMW-style tachometer: black face, 0–8 ×1000 rpm, red zone, orange needle.
-// On load the needle revs to the limiter and drops to idle; hovering revs it again.
+// On load: instrument check sweep (0 → 8 → 0), then the engine starts and the needle settles at idle.
 
 const C = 110;               // centre
 const START = 135, SWEEP = 270, MAX = 8; // 0 rpm at bottom-left, 8 at bottom-right
@@ -34,7 +34,7 @@ export default function Tacho() {
           <stop offset="100%" stopColor="#14171b" />
         </linearGradient>
         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="2.2" result="b" />
+          <feGaussianBlur stdDeviation="1.1" result="b" />
           <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
         </filter>
       </defs>
