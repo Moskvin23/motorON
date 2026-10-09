@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Icon, { Logo } from './Icon';
 import { usePrefs } from './Prefs';
 import ContactButton from './ContactButton';
+import Tacho from './Tacho';
 import { GEO, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE_HUMAN, RATING, REVIEW_COUNT, reviewsLabel } from '@/lib/i18n';
 
 function Header() {
@@ -58,16 +59,7 @@ function Hero() {
           <ul className="stats">{t.hero.stats.map((s) => <li key={s.v}><b>{s.v}</b>{s.l === 'GOOGLE_COUNT' ? <a href={GOOGLE_REVIEWS} target="_blank" rel="noopener" className="stat-link">{reviewsLabel(REVIEW_COUNT, lang)} {t.reviews.onGoogle}</a> : <span>{s.l}</span>}</li>)}</ul>
         </div>
         <div className="hero-art" aria-hidden="true">
-          <div className="gauge">
-            <svg viewBox="0 0 200 200">
-              <circle cx="100" cy="100" r="86" className="g-track" />
-              <circle cx="100" cy="100" r="86" className="g-fill" />
-              {Array.from({ length: 9 }, (_, i) => { const a = (-210 + i * 30) * Math.PI / 180; return <line key={i} x1={100 + Math.cos(a) * 70} y1={100 + Math.sin(a) * 70} x2={100 + Math.cos(a) * 78} y2={100 + Math.sin(a) * 78} className="g-tick" />; })}
-              <line x1="100" y1="100" x2="152" y2="62" className="g-needle" />
-              <circle cx="100" cy="100" r="7" className="g-hub" />
-            </svg>
-            <div className="g-label"><b>ON</b><span>Briukhovychi</span></div>
-          </div>
+          <div className="gauge"><Tacho /></div>
           <div className="chip c1"><Icon name="engine" size={18} /> {t.services.items[0].t}</div>
           <div className="chip c2"><Icon name="shock" size={18} /> {t.services.items[2].t}</div>
           <div className="chip c3"><Icon name="bolt" size={18} /> {t.services.items[4].t}</div>

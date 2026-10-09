@@ -65,20 +65,33 @@ button { cursor: pointer; background: none; border: 0; }
 .stats span { color: var(--mut); font-size: 14px; }
 .hero-art { position: relative; height: 420px; }
 .gauge { position: absolute; inset: 30px; display: grid; place-items: center; }
-.gauge svg { width: 100%; max-width: 340px; }
-.g-track { fill: var(--card); stroke: var(--line); stroke-width: 10; }
-.g-fill { fill: none; stroke: var(--brand); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 540; stroke-dashoffset: 540; transform: rotate(150deg); transform-origin: center; animation: fill 1.6s .3s cubic-bezier(.2, .8, .2, 1) forwards; }
-@keyframes fill { to { stroke-dashoffset: 170; } }
-.g-tick { stroke: var(--faint); stroke-width: 3; stroke-linecap: round; }
-.g-needle { stroke: var(--text); stroke-width: 4; stroke-linecap: round; transform-origin: 100px 100px; animation: needle 1.6s .3s cubic-bezier(.2, .8, .2, 1) both; }
-@keyframes needle { from { transform: rotate(-140deg); } to { transform: rotate(0deg); } }
-.g-hub { fill: var(--brand); }
-.g-label { position: absolute; top: 58%; text-align: center; }
-.g-label b { display: block; font-size: 34px; color: var(--brand); letter-spacing: .1em; }
-.g-label span { font-size: 12px; color: var(--faint); letter-spacing: .2em; text-transform: uppercase; }
+.tacho { width: 100%; max-width: 360px; overflow: visible; filter: drop-shadow(0 24px 40px rgba(0,0,0,.45)); }
+.tk { stroke: #c9ced6; stroke-width: 1.2; }
+.tk.mj { stroke: #fff; stroke-width: 2.6; }
+.tk.red { stroke: #ff3b1f; }
+.redzone { fill: none; stroke: #e01f0f; stroke-width: 7; opacity: .9; }
+.num { fill: #f4f6f8; font-size: 15px; font-weight: 800; font-family: var(--font-wordmark), sans-serif; }
+.num.red { fill: #ff3b1f; }
+.unit { fill: #8b939d; font-size: 7px; letter-spacing: .12em; }
+.on { fill: var(--brand); font-size: 19px; font-family: var(--font-wordmark), sans-serif; letter-spacing: .08em; }
+[data-theme='light'] .on { fill: #3ee6b8; }
+.place { fill: #6b737d; font-size: 6px; letter-spacing: .32em; }
+.needle { transform-origin: 110px 110px; transform: rotate(175deg); animation: rev 2.6s .35s cubic-bezier(.3,.05,.2,1) both; }
+.nd { fill: #ff4d1a; }
+.hub { fill: #15181c; stroke: #3b424b; stroke-width: 2; }
+.hub-dot { fill: var(--brand); }
+@keyframes rev {
+  0% { transform: rotate(135deg); }
+  38% { transform: rotate(398deg); }
+  44% { transform: rotate(390deg); }
+  50% { transform: rotate(399deg); }
+  100% { transform: rotate(175deg); }
+}
+.hero-art:hover .needle { animation: blip .9s cubic-bezier(.3,.05,.2,1); }
+@keyframes blip { 0% { transform: rotate(175deg); } 35% { transform: rotate(330deg); } 100% { transform: rotate(175deg); } }
 .chip { position: absolute; display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); font-weight: 700; font-size: 14px; animation: float 6s ease-in-out infinite; }
 .chip svg { color: var(--brand); }
-.c1 { top: 4%; left: 0; } .c2 { top: 30%; right: -2%; animation-delay: -1.5s; } .c3 { bottom: 12%; left: 4%; animation-delay: -3s; } .c4 { bottom: 0; right: 10%; animation-delay: -4.5s; color: #f5b301; }
+.c1 { top: 2%; left: -4%; } .c2 { top: 22%; right: -9%; animation-delay: -1.5s; } .c3 { bottom: 12%; left: 4%; animation-delay: -3s; } .c4 { bottom: 0; right: 10%; animation-delay: -4.5s; color: #f5b301; }
 .c4 svg { color: #f5b301; }
 @keyframes float { 50% { transform: translateY(-10px); } }
 
@@ -178,7 +191,7 @@ form { display: flex; flex-direction: column; gap: 14px; }
 .ftr-in { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; color: var(--mut); font-size: 14px; }
 .mbar { display: none; }
 
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .g-fill { stroke-dashoffset: 170; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .needle { transform: rotate(175deg); } }
 
 @media (max-width: 1000px) {
   .nav, .hide-sm { display: none; }
