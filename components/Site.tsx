@@ -6,7 +6,7 @@ import ContactButton from './ContactButton';
 import Tacho from './Tacho';
 import Gallery from './Gallery';
 import DayPicker from './DayPicker';
-import { GEO, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE_HUMAN, RATING, REVIEW_COUNT, reviewsLabel } from '@/lib/i18n';
+import { DICT, GEO, SHEET_URL, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE, PHONE_HUMAN, RATING, REVIEW_COUNT, reviewsLabel } from '@/lib/i18n';
 
 function Header() {
   const { t, lang, setLang, theme, setTheme } = usePrefs();
@@ -179,7 +179,8 @@ function Reviews() {
 }
 
 function Booking() {
-  const { t } = usePrefs();
+  const { t, lang } = usePrefs();
+  const [hp, setHp] = useState('');
   const b = t.book;
   const [f, setF] = useState({ car: '', year: '', service: '', problem: '', date: '', part: '', name: '', phone: '' });
   const [err, setErr] = useState<Record<string, string>>({});
@@ -201,8 +202,14 @@ function Booking() {
     setErr(er);
     if (Object.keys(er).length) { document.querySelector<HTMLElement>(`[name="${Object.keys(er)[0]}"]`)?.focus(); return; }
     setState('sending');
-    // Production: POST to a serverless function that forwards the request to the mechanics' Telegram chat.
-    setTimeout(() => setState('done'), 900);
+    if (!SHEET_URL) { setTimeout(() => setState('done'), 900); return; } // demo mode: nothing is sent
+    // Labels are sent in Ukrainian so the sheet reads the same whatever language the visitor used.
+    const uk = DICT.uk.book, svc = DICT.uk.services.items;
+    const payload = { ...f, service: f.service === 'other' ? uk.other : f.service ? svc[+f.service].t : '', part: f.part ? uk.parts[+f.part] : '', lang, website: hp };
+    // text/plain avoids a CORS preflight that Apps Script cannot answer; no-cors gives an opaque reply, so a network error is the only failure we can see.
+    fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+      .then(() => setState('done'))
+      .catch(() => { setState('idle'); setErr({ send: 'errSend' }); });
   };
 
   return (
@@ -212,7 +219,7 @@ function Booking() {
           <h2>{b.title}</h2>
           <p>{b.lead}</p>
           <span className="big-phone-wrap"><span className="or">{b.or}</span><ContactButton className="big-phone"><Icon name="phone" size={22} /> {PHONE_HUMAN}</ContactButton></span>
-          <p className="demo-note">{b.demo}</p>
+          {!SHEET_URL && <p className="demo-note">{b.demo}</p>}
         </div>
         <div className="card form-card">
           {state === 'done' ? (
@@ -241,6 +248,8 @@ function Booking() {
                 <label className="fld"><span>{b.phone} *</span><input name="phone" value={f.phone} onChange={set('phone')} type="tel" autoComplete="tel" placeholder={b.phonePh} aria-invalid={!!err.phone} />{err.phone && <small>{b[err.phone as 'errCar']}</small>}</label>
               </div>
               <div className="fld"><span>{b.date}</span><DayPicker day={f.date} part={f.part} onDay={(v) => setF({ ...f, date: v })} onPart={(v) => setF({ ...f, part: v })} /></div>
+              <input className="hp" tabIndex={-1} autoComplete="off" aria-hidden="true" name="website" value={hp} onChange={(e) => setHp(e.target.value)} />
+              {err.send && <p className="send-err" role="alert">{b.errSend} <a href={`tel:${PHONE}`}>{PHONE_HUMAN}</a></p>}
               <button className="btn lg full" disabled={state === 'sending'}>{state === 'sending' ? b.sending : b.submit}</button>
             </form>
           )}

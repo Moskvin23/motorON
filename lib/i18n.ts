@@ -11,6 +11,8 @@ export const MAPS = 'https://www.google.com/maps/dir/?api=1&destination=49.89745
 // Place card opened directly on the Reviews tab.
 export const GOOGLE_REVIEWS = 'https://www.google.com/maps/place/MotorON+%D0%A1%D0%A2%D0%9E/@49.8974506,23.9629972,17z/data=!4m8!3m7!1s0x473adf1c47b48b1b:0x2cc2996db4eca30e!8m2!3d49.8974506!4d23.9629972!9m1!1b1!16s%2Fg%2F11zytg2zp3';
 export const GEO = { lat: 49.8974506, lng: 23.9629972 };
+/** Google Apps Script web-app URL (see integrations/google-sheet.gs). Empty = demo mode, the form sends nothing. */
+export const SHEET_URL = process.env.NEXT_PUBLIC_SHEET_URL || '';
 
 // Google Maps rating — update when new reviews arrive (checked 09.10.2026).
 export const RATING = 5.0;
@@ -108,7 +110,7 @@ const uk = {
     okTitle: 'Дякуємо! Заявку прийнято', okText: 'Майстер зателефонує вам найближчим часом.',
     again: 'Нова заявка',
     demo: 'Демо-версія сайту: заявка нікуди не надсилається. У робочій версії вона миттєво приходить майстрам у Telegram.',
-    errName: 'Вкажіть ім’я', errPhone: 'Вкажіть номер телефону', errCar: 'Вкажіть авто',
+    errName: 'Вкажіть ім’я', errPhone: 'Вкажіть номер телефону', errCar: 'Вкажіть авто', errSend: 'Не вдалося надіслати. Перевірте інтернет або зателефонуйте:',
     or: 'або зателефонуйте',
   },
   faq: {
@@ -213,7 +215,7 @@ const en: Dict = {
     okTitle: 'Thank you! Request received', okText: 'A mechanic will call you shortly.',
     again: 'New request',
     demo: 'Demo version: the request is not sent anywhere. In production it goes straight to the mechanics’ Telegram.',
-    errName: 'Enter your name', errPhone: 'Enter a phone number', errCar: 'Enter your car',
+    errName: 'Enter your name', errPhone: 'Enter a phone number', errCar: 'Enter your car', errSend: 'Could not send. Check your connection or call us:',
     or: 'or call',
   },
   faq: {

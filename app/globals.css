@@ -249,6 +249,10 @@ form { display: flex; flex-direction: column; gap: 14px; }
 .dp-grid button.on { background: var(--brand); color: var(--brand-ink); }
 .dp-grid button:disabled { color: var(--faint); opacity: .4; text-decoration: line-through; cursor: not-allowed; }
 
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.send-err { margin: 0 0 12px; padding: 10px 12px; border-radius: 10px; background: color-mix(in srgb, #e5484d 12%, transparent); color: #e5484d; font-size: 14px; }
+.send-err a { color: inherit; font-weight: 700; }
+
 /* faq & contacts */
 .faq { border: 1px solid var(--line); border-radius: 14px; background: var(--card); margin-bottom: 10px; }
 .faq summary { list-style: none; cursor: pointer; padding: 18px 22px; font-weight: 700; font-size: 17px; display: flex; justify-content: space-between; gap: 16px; }
