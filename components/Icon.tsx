@@ -7,8 +7,6 @@ const P: Record<string, string> = {
   oil: 'M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11Z',
   bolt: 'M13 2 4 14h7l-1 8 9-12h-7l1-8Z',
   scan: 'M3 7V4h3 M18 4h3v3 M21 17v3h-3 M6 20H3v-3 M7 12h2l2-4 2 8 2-4h2',
-  viber: 'M7 3h7a6 6 0 0 1 6 6v3a6 6 0 0 1-6 6h-2l-4 3v-3.4A6 6 0 0 1 4 12V6a3 3 0 0 1 3-3Z M10 7.5c.8 1.9 2 3.2 4 4 M12.5 6.5a3 3 0 0 1 2.5 2.5',
-  telegram: 'M21 4 3 11l6 2 2 6 3-4 5 4 2-15Z M9 13l9-6-6 8',
   phone: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z',
   pin: 'M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z M12 7.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 1 0 0-5Z',
   clock: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18Z M12 7v5l3 2',
@@ -26,6 +24,24 @@ export default function Icon({ name, size = 22, fill = false }: { name: string; 
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill={fill ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d={P[name]} />
+    </svg>
+  );
+}
+
+/** Messenger glyphs drawn in white for the coloured Viber / Telegram tiles. */
+export function BrandIcon({ name, size = 20 }: { name: 'viber' | 'telegram'; size?: number }) {
+  if (name === 'telegram') {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#fff" d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
+      </svg>
+    );
+  }
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2.6c5.3 0 8.4 2.5 8.4 8.2 0 5.6-3 8-8.4 8-.75 0-1.45-.04-2.1-.13L6.6 21.3v-3.2C4.5 16.8 3.6 14.4 3.6 10.8 3.6 5.1 6.7 2.6 12 2.6Z" fill="none" stroke="#fff" strokeWidth="1.7" strokeLinejoin="round" />
+      <path fill="#fff" d="M9.05 6.9c.35-.27.85-.22 1.1.13l.92 1.3c.24.33.2.78-.08 1.06l-.45.45c.43.95 1.17 1.72 2.1 2.18l.47-.45c.29-.28.74-.31 1.06-.07l1.28.95c.34.25.4.74.13 1.07l-.45.55c-.42.5-1.1.72-1.73.52-2.27-.73-4.04-2.5-4.77-4.77-.2-.63.02-1.31.52-1.73Z" />
+      <path d="M12.9 5.9a3.9 3.9 0 0 1 3.5 3.6 M12.8 7.9a1.9 1.9 0 0 1 1.6 1.7" fill="none" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" />
     </svg>
   );
 }
