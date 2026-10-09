@@ -94,6 +94,7 @@ const uk = {
   contacts: {
     title: 'Контакти', address: 'вул. Львівська, Брюховичі, Львівська обл., 79491', hours: 'Відкриваємось о 9:30', route: 'Прокласти маршрут', insta: 'Instagram',
   },
+  contact: { title: 'Як зв’язатися?', call: 'Подзвонити', copy: 'Скопіювати номер' },
   footer: { rights: 'MotorON СТО', demo: 'Демо-сайт, підготовлений як пропозиція для MotorON.' },
 };
 
@@ -183,6 +184,7 @@ const en: Dict = {
   contacts: {
     title: 'Contacts', address: 'Lvivska St, Briukhovychi, Lviv region, 79491', hours: 'Opens at 9:30', route: 'Get directions', insta: 'Instagram',
   },
+  contact: { title: 'How to reach us?', call: 'Call', copy: 'Copy number' },
   footer: { rights: 'MotorON car service', demo: 'Demo website prepared as a proposal for MotorON.' },
 };
 

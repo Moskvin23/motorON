@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import Icon, { Logo } from './Icon';
 import { usePrefs } from './Prefs';
-import { GEO, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE, PHONE_HUMAN } from '@/lib/i18n';
+import ContactButton from './ContactButton';
+import { GEO, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE_HUMAN } from '@/lib/i18n';
 
 function Header() {
   const { t, lang, setLang, theme, setTheme } = usePrefs();
@@ -52,7 +53,7 @@ function Hero() {
           <p className="lead">{t.hero.lead}</p>
           <div className="cta">
             <a className="btn lg" href="#book">{t.hero.book} <Icon name="arrow" size={18} /></a>
-            <a className="btn lg ghost" href={`tel:${PHONE}`}><Icon name="phone" size={18} /> {PHONE_HUMAN}</a>
+            <ContactButton className="btn lg ghost" />
           </div>
           <ul className="stats">{t.hero.stats.map((s) => <li key={s.l}><b>{s.v}</b><span>{s.l}</span></li>)}</ul>
         </div>
@@ -187,7 +188,7 @@ function Booking() {
         <div className="book-copy">
           <h2>{b.title}</h2>
           <p>{b.lead}</p>
-          <a className="big-phone" href={`tel:${PHONE}`}><span>{b.or}</span><Icon name="phone" size={22} /> {PHONE_HUMAN}</a>
+          <span className="big-phone-wrap"><span className="or">{b.or}</span><ContactButton className="big-phone"><Icon name="phone" size={22} /> {PHONE_HUMAN}</ContactButton></span>
           <p className="demo-note">{b.demo}</p>
         </div>
         <div className="card form-card">
@@ -247,7 +248,7 @@ function Contacts() {
       <div className="wrap contacts">
         <div className="c-info">
           <h2>{t.contacts.title}</h2>
-          <a href={`tel:${PHONE}`} className="c-row"><Icon name="phone" /> <b>{PHONE_HUMAN}</b></a>
+          <ContactButton className="c-row as-btn"><Icon name="phone" /> <b>{PHONE_HUMAN}</b></ContactButton>
           <p className="c-row"><Icon name="pin" /> {t.contacts.address}</p>
           <p className="c-row"><Icon name="clock" /> {t.contacts.hours}</p>
           <a href={INSTAGRAM} target="_blank" rel="noopener" className="c-row"><Icon name="insta" /> @motoron_sto</a>
@@ -274,7 +275,7 @@ export default function Site() {
         <div className="wrap ftr-in"><Logo /><span>© 2026 {t.footer.rights}</span><span className="muted">{t.footer.demo}</span></div>
       </footer>
       <div className="mbar">
-        <a href={`tel:${PHONE}`} className="btn ghost"><Icon name="phone" size={18} /> {t.hero.call}</a>
+        <ContactButton className="btn ghost"><Icon name="phone" size={18} /> {t.hero.call}</ContactButton>
         <a href="#book" className="btn">{t.nav.book}</a>
       </div>
     </>
