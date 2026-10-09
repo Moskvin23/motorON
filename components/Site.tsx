@@ -4,6 +4,7 @@ import Icon, { Logo } from './Icon';
 import { usePrefs } from './Prefs';
 import ContactButton from './ContactButton';
 import Tacho from './Tacho';
+import Gallery from './Gallery';
 import { GEO, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE_HUMAN, RATING, REVIEW_COUNT, reviewsLabel } from '@/lib/i18n';
 
 function Header() {
@@ -15,7 +16,7 @@ function Header() {
     on(); window.addEventListener('scroll', on, { passive: true });
     return () => window.removeEventListener('scroll', on);
   }, []);
-  const links: [string, string][] = [['#services', t.nav.services], ['#cases', t.nav.cases], ['#process', t.nav.process], ['#reviews', t.nav.reviews], ['#contacts', t.nav.contacts]];
+  const links: [string, string][] = [['#services', t.nav.services], ['#cases', t.nav.cases], ['#gallery', t.nav.gallery], ['#process', t.nav.process], ['#reviews', t.nav.reviews], ['#contacts', t.nav.contacts]];
   return (
     <header className={`hdr${scrolled ? ' scrolled' : ''}`}>
       <div className="wrap hdr-in">
@@ -265,7 +266,7 @@ export default function Site() {
     <>
       <Header />
       <main>
-        <Hero /><Services /><Cases /><Process /><Reviews /><Booking /><Faq /><Contacts />
+        <Hero /><Services /><Cases /><Gallery /><Process /><Reviews /><Booking /><Faq /><Contacts />
       </main>
       <footer className="ftr">
         <div className="wrap ftr-in"><Logo /><span>© 2026 {t.footer.rights}</span><span className="muted">{t.footer.demo}</span></div>

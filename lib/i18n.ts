@@ -23,7 +23,7 @@ export function reviewsLabel(n: number, lang: Lang) {
 }
 
 const uk = {
-  nav: { services: 'Послуги', cases: 'Кейси', process: 'Як працюємо', reviews: 'Відгуки', contacts: 'Контакти', book: 'Записатись' },
+  nav: { services: 'Послуги', cases: 'Кейси', gallery: 'Фото', process: 'Як працюємо', reviews: 'Відгуки', contacts: 'Контакти', book: 'Записатись' },
   theme: { light: 'Світла тема', dark: 'Темна тема' },
   hero: {
     badge: 'Нове СТО у Брюховичах',
@@ -59,6 +59,20 @@ const uk = {
       { tag: 'Ходова', t: '«Звук тролейбуса» в Hyundai Kona / Kia Niro', p: 'Характерне виття на ходу, через яке власники роками їздять по сервісах.', r: 'Знаходимо джерело звуку й усуваємо причину, а не симптом.' },
       { tag: 'ТО', t: 'Заміна масла — і знайдений стук', p: 'Клієнт записався на планове ТО. Під час огляду майстри виявили причину стуку в ходовій.', r: 'Проблему помітили до того, як вона стала дорогою.' },
     ],
+  },
+  gallery: {
+    title: 'Майстерня і наші роботи',
+    lead: 'Як виглядає сервіс зсередини та що ми робимо з авто.',
+    tags: { photo: 'Фото', video: 'Відео', beforeAfter: 'До / Після' },
+    items: {
+      shop: { t: 'Наша майстерня в Брюховичах', d: 'Робоча зона, підйомники та обладнання.' },
+      video: { t: 'Пошук стороннього звуку', d: 'Коротке відео з діагностики ходової.' },
+      ba1: { t: 'Заміна півосей', d: 'Зношені деталі та нові після заміни.' },
+      lift: { t: 'Авто на підйомнику', d: 'Огляд ходової під час ТО.' },
+      diag: { t: 'Комп’ютерна діагностика', d: 'Зчитування помилок і аналіз параметрів.' },
+      ba2: { t: 'Заміна ременя ГРМ', d: 'Старий і новий комплект ГРМ.' },
+    },
+    note: 'Тут будуть реальні фото й відео з нашого сервісу.',
   },
   process: {
     title: 'Як ми працюємо',
@@ -114,7 +128,7 @@ const uk = {
 type Dict = typeof uk;
 
 const en: Dict = {
-  nav: { services: 'Services', cases: 'Cases', process: 'How we work', reviews: 'Reviews', contacts: 'Contacts', book: 'Book now' },
+  nav: { services: 'Services', cases: 'Cases', gallery: 'Photos', process: 'How we work', reviews: 'Reviews', contacts: 'Contacts', book: 'Book now' },
   theme: { light: 'Light theme', dark: 'Dark theme' },
   hero: {
     badge: 'New car service in Briukhovychi',
@@ -150,6 +164,20 @@ const en: Dict = {
       { tag: 'Suspension', t: '“Trolleybus sound” in Hyundai Kona / Kia Niro', p: 'A distinctive whine while driving that owners chase from shop to shop for years.', r: 'We find the real source and fix the cause, not the symptom.' },
       { tag: 'Service', t: 'An oil change — and a knock found', p: 'A customer booked routine maintenance. During the inspection our mechanics found what was causing a knock in the suspension.', r: 'Caught before it became expensive.' },
     ],
+  },
+  gallery: {
+    title: 'Our shop & work',
+    lead: 'What the workshop looks like inside and what we do with cars.',
+    tags: { photo: 'Photo', video: 'Video', beforeAfter: 'Before / After' },
+    items: {
+      shop: { t: 'Our workshop in Briukhovychi', d: 'Work bays, lifts and equipment.' },
+      video: { t: 'Tracking down a noise', d: 'A short clip from a suspension diagnosis.' },
+      ba1: { t: 'Drive shaft replacement', d: 'Worn parts and the new ones after the job.' },
+      lift: { t: 'Car on the lift', d: 'Suspension inspection during a service.' },
+      diag: { t: 'Computer diagnostics', d: 'Reading fault codes and live data.' },
+      ba2: { t: 'Timing belt replacement', d: 'Old and new timing kit.' },
+    },
+    note: 'Real photos and videos from our shop will appear here.',
   },
   process: {
     title: 'How we work',
