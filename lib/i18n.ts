@@ -10,6 +10,18 @@ export const MAPS = 'https://maps.app.goo.gl/Vr7Hqv5jbMmCFR8o9';
 export const GOOGLE_REVIEWS = 'https://www.google.com/maps/place/MotorON+%D0%A1%D0%A2%D0%9E/@49.8974506,23.9629972,17z';
 export const GEO = { lat: 49.8974506, lng: 23.9629972 };
 
+// Google Maps rating — update when new reviews arrive (checked 09.10.2026).
+export const RATING = 5.0;
+export const REVIEW_COUNT = 10;
+
+/** "10 відгуків" / "1 відгук" / "3 відгуки" / "10 reviews" */
+export function reviewsLabel(n: number, lang: Lang) {
+  if (lang === 'en') return `${n} ${n === 1 ? 'review' : 'reviews'}`;
+  const m10 = n % 10, m100 = n % 100;
+  const w = m10 === 1 && m100 !== 11 ? 'відгук' : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? 'відгуки' : 'відгуків';
+  return `${n} ${w}`;
+}
+
 const uk = {
   nav: { services: 'Послуги', cases: 'Кейси', process: 'Як працюємо', reviews: 'Відгуки', contacts: 'Контакти', book: 'Записатись' },
   theme: { light: 'Світла тема', dark: 'Темна тема' },
@@ -21,7 +33,7 @@ const uk = {
     book: 'Записатись онлайн',
     call: 'Подзвонити',
     stats: [
-      { v: '5.0 ★', l: 'рейтинг у Google' },
+      { v: '5.0 ★', l: 'GOOGLE_COUNT' },
       { v: '7+ років', l: 'практичного досвіду' },
       { v: '6 напрямків', l: 'від ТО до двигуна' },
     ],
@@ -60,6 +72,7 @@ const uk = {
   reviews: {
     title: 'Що кажуть клієнти',
     lead: 'Усі відгуки — з Google Maps.',
+    onGoogle: 'у Google',
     all: 'Усі відгуки в Google',
     items: [
       { n: 'Ігор Л.', t: 'Записався на заміну масла і ТО авто. Гарно і якісно поміняли масло, а головне визначили проблему «стуку» у ходовій. Ретельно усе перевіряють.' },
@@ -111,7 +124,7 @@ const en: Dict = {
     book: 'Book online',
     call: 'Call us',
     stats: [
-      { v: '5.0 ★', l: 'Google rating' },
+      { v: '5.0 ★', l: 'GOOGLE_COUNT' },
       { v: '7+ years', l: 'of hands-on experience' },
       { v: '6 areas', l: 'from service to engine' },
     ],
@@ -150,6 +163,7 @@ const en: Dict = {
   reviews: {
     title: 'What customers say',
     lead: 'All reviews are from Google Maps (translated).',
+    onGoogle: 'on Google',
     all: 'All reviews on Google',
     items: [
       { n: 'Ihor L.', t: 'Booked an oil change and service. They changed the oil well and, most importantly, found the cause of a “knock” in the suspension. They check everything thoroughly.' },

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Manrope, Michroma } from 'next/font/google';
 import { PrefsProvider, themeScript } from '@/components/Prefs';
-import { GEO, INSTAGRAM, PHONE } from '@/lib/i18n';
+import { GEO, INSTAGRAM, PHONE, RATING, REVIEW_COUNT } from '@/lib/i18n';
 import './globals.css';
 
 const font = Manrope({ subsets: ['latin', 'cyrillic'], display: 'swap' });
@@ -22,7 +22,7 @@ const jsonLd = {
   address: { '@type': 'PostalAddress', streetAddress: 'вул. Львівська', addressLocality: 'Брюховичі', addressRegion: 'Львівська обл.', postalCode: '79491', addressCountry: 'UA' },
   geo: { '@type': 'GeoCoordinates', latitude: GEO.lat, longitude: GEO.lng },
   sameAs: [INSTAGRAM],
-  aggregateRating: { '@type': 'AggregateRating', ratingValue: '5.0', reviewCount: '10' },
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: RATING.toFixed(1), reviewCount: String(REVIEW_COUNT) },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

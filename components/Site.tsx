@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Icon, { Logo } from './Icon';
 import { usePrefs } from './Prefs';
 import ContactButton from './ContactButton';
-import { GEO, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE_HUMAN } from '@/lib/i18n';
+import { GEO, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE_HUMAN, RATING, REVIEW_COUNT, reviewsLabel } from '@/lib/i18n';
 
 function Header() {
   const { t, lang, setLang, theme, setTheme } = usePrefs();
@@ -43,7 +43,7 @@ function Header() {
 }
 
 function Hero() {
-  const { t } = usePrefs();
+  const { t, lang } = usePrefs();
   return (
     <section className="hero" id="top">
       <div className="wrap hero-in">
@@ -55,7 +55,7 @@ function Hero() {
             <a className="btn lg" href="#book">{t.hero.book} <Icon name="arrow" size={18} /></a>
             <ContactButton className="btn lg ghost" />
           </div>
-          <ul className="stats">{t.hero.stats.map((s) => <li key={s.l}><b>{s.v}</b><span>{s.l}</span></li>)}</ul>
+          <ul className="stats">{t.hero.stats.map((s) => <li key={s.v}><b>{s.v}</b>{s.l === 'GOOGLE_COUNT' ? <a href={GOOGLE_REVIEWS} target="_blank" rel="noopener" className="stat-link">{reviewsLabel(REVIEW_COUNT, lang)} {t.reviews.onGoogle}</a> : <span>{s.l}</span>}</li>)}</ul>
         </div>
         <div className="hero-art" aria-hidden="true">
           <div className="gauge">
@@ -71,7 +71,7 @@ function Hero() {
           <div className="chip c1"><Icon name="engine" size={18} /> {t.services.items[0].t}</div>
           <div className="chip c2"><Icon name="shock" size={18} /> {t.services.items[2].t}</div>
           <div className="chip c3"><Icon name="bolt" size={18} /> {t.services.items[4].t}</div>
-          <div className="chip c4"><Icon name="star" size={16} fill /> 5.0 Google</div>
+          <div className="chip c4"><Icon name="star" size={16} fill /> {RATING.toFixed(1)} · {reviewsLabel(REVIEW_COUNT, lang)}</div>
         </div>
       </div>
     </section>
@@ -138,13 +138,17 @@ function Process() {
 }
 
 function Reviews() {
-  const { t } = usePrefs();
+  const { t, lang } = usePrefs();
   return (
     <section className="sec alt" id="reviews">
       <div className="wrap">
         <div className="sec-head row">
           <div><h2>{t.reviews.title}</h2><p>{t.reviews.lead}</p></div>
-          <div className="rating"><b>5.0</b><span className="stars">{'★★★★★'}</span><a href={GOOGLE_REVIEWS} target="_blank" rel="noopener">{t.reviews.all} →</a></div>
+          <div className="rating">
+            <b>{RATING.toFixed(1)}</b>
+            <span className="rating-meta"><span className="stars">★★★★★</span><span>{reviewsLabel(REVIEW_COUNT, lang)} {t.reviews.onGoogle}</span></span>
+            <a href={GOOGLE_REVIEWS} target="_blank" rel="noopener">{t.reviews.all} →</a>
+          </div>
         </div>
         <div className="grid4">
           {t.reviews.items.map((r) => (

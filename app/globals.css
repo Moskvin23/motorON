@@ -110,6 +110,9 @@ button { cursor: pointer; background: none; border: 0; }
 .rating { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .rating b { font-size: 34px; letter-spacing: -.02em; }
 .rating a { font-weight: 700; color: var(--brand); font-size: 14.5px; }
+.rating-meta { display: flex; flex-direction: column; line-height: 1.25; font-size: 14px; color: var(--mut); font-weight: 600; }
+.stat-link { color: var(--mut); font-size: 14px; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.stat-link:hover { color: var(--brand); text-decoration-color: var(--brand); }
 .stars { color: #f5b301; letter-spacing: 2px; }
 .review { display: flex; flex-direction: column; gap: 12px; }
 .review blockquote { color: var(--text); font-size: 15px; flex: 1; }
