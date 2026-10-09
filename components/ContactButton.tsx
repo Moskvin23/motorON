@@ -47,7 +47,7 @@ export default function ContactButton({ className = 'btn ghost', children }: { c
       <span className="cmenu" role="menu" ref={menu}>
         <span className="cmenu-head">{t.contact.title}<b>{PHONE_HUMAN}</b></span>
         <a role="menuitem" href={LINKS.call} onClick={close}><i className="ci call"><Icon name="phone" size={18} /></i>{t.contact.call}</a>
-        <a role="menuitem" href={LINKS.viber} onClick={close}><i className="ci viber"><BrandIcon name="viber" size={22} /></i>Viber</a>
+        <a role="menuitem" href={LINKS.viber} onClick={close}><i className="ci viber"><BrandIcon name="viber" size={20} /></i>Viber</a>
         <a role="menuitem" href={LINKS.telegram} target="_blank" rel="noopener" onClick={close}><i className="ci tg"><BrandIcon name="telegram" size={22} /></i>Telegram</a>
         <button type="button" className="cmenu-copy" onClick={() => { navigator.clipboard?.writeText(PHONE_HUMAN); close(); }}>{t.contact.copy}</button>
       </span>
