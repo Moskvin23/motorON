@@ -77,7 +77,7 @@ button { cursor: pointer; background: none; border: 0; }
 .on { fill: var(--brand); font-size: 19px; font-family: var(--font-wordmark), sans-serif; letter-spacing: .08em; }
 [data-theme='light'] .on { fill: #3ee6b8; }
 .place { fill: #6b737d; font-size: 6px; letter-spacing: .32em; }
-.needle { transform-origin: 110px 110px; transform: rotate(162deg); animation: start 3.4s .4s ease-in-out both, idle 2.4s 3.8s ease-in-out infinite; }
+.needle { transform-origin: 110px 110px; transform: rotate(162deg); animation: start 3.4s .4s ease-in-out both, cycle 9s 3.8s ease-in-out infinite; }
 .nd { fill: #f2602f; }
 .hub { fill: #15181c; stroke: #3b424b; stroke-width: 2; }
 .hub-dot { fill: var(--brand); }
@@ -89,7 +89,16 @@ button { cursor: pointer; background: none; border: 0; }
   78% { transform: rotate(178deg); }
   100% { transform: rotate(162deg); }
 }
-@keyframes idle { 50% { transform: rotate(163.6deg); } }
+/* idle with a slight wobble, then a short throttle blip to ~3000 rpm every 9 s */
+@keyframes cycle {
+  0%, 20%, 40%, 60% { transform: rotate(162deg); }
+  10%, 30%, 50% { transform: rotate(163.6deg); }
+  66% { transform: rotate(162deg); animation-timing-function: cubic-bezier(.4, 0, .9, .6); }
+  71% { transform: rotate(236deg); animation-timing-function: cubic-bezier(.2, .6, .3, 1); }
+  84% { transform: rotate(159.5deg); }
+  90% { transform: rotate(163deg); }
+  100% { transform: rotate(162deg); }
+}
 .chip { position: absolute; display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); font-weight: 700; font-size: 14px; animation: float 6s ease-in-out infinite; }
 .chip svg { color: var(--brand); }
 .c1 { top: 2%; left: -4%; } .c2 { top: 22%; right: -9%; animation-delay: -1.5s; } .c3 { bottom: 12%; left: 4%; animation-delay: -3s; } .c4 { bottom: 0; right: 10%; animation-delay: -4.5s; color: #f5b301; }
