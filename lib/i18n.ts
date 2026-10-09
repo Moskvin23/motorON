@@ -4,10 +4,12 @@
 export type Lang = 'uk' | 'en';
 
 export const PHONE = '+380738550999';
-export const PHONE_HUMAN = '073 855 0999';
+export const PHONE_HUMAN = '+38 073 855 0999';
 export const INSTAGRAM = 'https://www.instagram.com/motoron_sto/';
-export const MAPS = 'https://maps.app.goo.gl/Vr7Hqv5jbMmCFR8o9';
-export const GOOGLE_REVIEWS = 'https://www.google.com/maps/place/MotorON+%D0%A1%D0%A2%D0%9E/@49.8974506,23.9629972,17z';
+// Opens turn-by-turn directions to the shop (Google Maps app on phones).
+export const MAPS = 'https://www.google.com/maps/dir/?api=1&destination=49.8974506,23.9629972&travelmode=driving';
+// Place card opened directly on the Reviews tab.
+export const GOOGLE_REVIEWS = 'https://www.google.com/maps/place/MotorON+%D0%A1%D0%A2%D0%9E/@49.8974506,23.9629972,17z/data=!4m8!3m7!1s0x473adf1c47b48b1b:0x2cc2996db4eca30e!8m2!3d49.8974506!4d23.9629972!9m1!1b1!16s%2Fg%2F11zytg2zp3';
 export const GEO = { lat: 49.8974506, lng: 23.9629972 };
 
 // Google Maps rating — update when new reviews arrive (checked 09.10.2026).
@@ -23,7 +25,7 @@ export function reviewsLabel(n: number, lang: Lang) {
 }
 
 const uk = {
-  nav: { services: 'Послуги', cases: 'Кейси', gallery: 'Фото', process: 'Як працюємо', reviews: 'Відгуки', contacts: 'Контакти', book: 'Записатись' },
+  nav: { services: 'Послуги', cases: 'Приклади', gallery: 'Фото', process: 'Як працюємо', reviews: 'Відгуки', contacts: 'Контакти', book: 'Записатись' },
   theme: { light: 'Світла тема', dark: 'Темна тема' },
   hero: {
     badge: 'Нове СТО у Брюховичах',
@@ -52,7 +54,7 @@ const uk = {
     note: 'Вартість залежить від авто — назвемо ціну після огляду, до початку робіт.',
   },
   cases: {
-    title: 'Реальні кейси',
+    title: 'Приклади ремонтів',
     lead: 'Типові історії, з якими до нас приїжджають.',
     items: [
       { tag: 'Ходова', t: 'Сторонній звук одразу після купівлі', p: 'Інше СТО перед покупкою сказало, що з ходовою все гаразд. У нас знайшли причину: обидві передні півосі були в поганому стані.', r: 'Замінили — звук зник.' },
@@ -101,7 +103,7 @@ const uk = {
     car: 'Марка й модель', carPh: 'Наприклад, Hyundai Kona',
     year: 'Рік', service: 'Послуга', choose: 'Оберіть послугу', other: 'Інше / не знаю',
     problem: 'Що турбує?', problemPh: 'Опишіть симптоми: звук, вібрація, помилка на панелі…',
-    date: 'Бажана дата', name: 'Ім’я', phone: 'Телефон', phonePh: '0XX XXX XX XX',
+    date: 'Коли зручно приїхати?', today: 'Сьогодні', tomorrow: 'Завтра', partLabel: 'Час доби', parts: ['Зранку', 'Вдень', 'Під вечір', 'Будь-коли'], name: 'Ім’я', phone: 'Телефон', phonePh: '+38 0XX XXX XX XX',
     submit: 'Надіслати заявку', sending: 'Надсилаємо…',
     okTitle: 'Дякуємо! Заявку прийнято', okText: 'Майстер зателефонує вам найближчим часом.',
     again: 'Нова заявка',
@@ -121,14 +123,14 @@ const uk = {
   contacts: {
     title: 'Контакти', address: 'вул. Львівська, Брюховичі, Львівська обл., 79491', hours: 'Відкриваємось о 9:30', route: 'Прокласти маршрут', insta: 'Instagram',
   },
-  contact: { title: 'Як зв’язатися?', call: 'Подзвонити', copy: 'Скопіювати номер' },
+  contact: { title: 'Як зв’язатися?', call: 'Подзвонити', copy: 'Скопіювати номер', copied: 'Номер скопійовано' },
   footer: { rights: 'MotorON СТО', demo: 'Демо-сайт, підготовлений як пропозиція для MotorON.' },
 };
 
 type Dict = typeof uk;
 
 const en: Dict = {
-  nav: { services: 'Services', cases: 'Cases', gallery: 'Photos', process: 'How we work', reviews: 'Reviews', contacts: 'Contacts', book: 'Book now' },
+  nav: { services: 'Services', cases: 'Examples', gallery: 'Photos', process: 'How we work', reviews: 'Reviews', contacts: 'Contacts', book: 'Book now' },
   theme: { light: 'Light theme', dark: 'Dark theme' },
   hero: {
     badge: 'New car service in Briukhovychi',
@@ -157,7 +159,7 @@ const en: Dict = {
     note: 'Price depends on the car — we quote after inspection, before any work starts.',
   },
   cases: {
-    title: 'Real cases',
+    title: 'Repair examples',
     lead: 'Typical stories our customers come with.',
     items: [
       { tag: 'Suspension', t: 'Strange noise right after buying the car', p: 'Another shop said the suspension was fine before the purchase. We found the cause: both front drive shafts were in bad shape.', r: 'Replaced — the noise is gone.' },
@@ -206,7 +208,7 @@ const en: Dict = {
     car: 'Make & model', carPh: 'e.g. Hyundai Kona',
     year: 'Year', service: 'Service', choose: 'Choose a service', other: 'Other / not sure',
     problem: 'What is the problem?', problemPh: 'Describe the symptoms: noise, vibration, warning light…',
-    date: 'Preferred date', name: 'Name', phone: 'Phone', phonePh: '0XX XXX XX XX',
+    date: 'When would you like to come?', today: 'Today', tomorrow: 'Tomorrow', partLabel: 'Time of day', parts: ['Morning', 'Afternoon', 'Evening', 'Any time'], name: 'Name', phone: 'Phone', phonePh: '+38 0XX XXX XX XX',
     submit: 'Send request', sending: 'Sending…',
     okTitle: 'Thank you! Request received', okText: 'A mechanic will call you shortly.',
     again: 'New request',
@@ -226,7 +228,7 @@ const en: Dict = {
   contacts: {
     title: 'Contacts', address: 'Lvivska St, Briukhovychi, Lviv region, 79491', hours: 'Opens at 9:30', route: 'Get directions', insta: 'Instagram',
   },
-  contact: { title: 'How to reach us?', call: 'Call', copy: 'Copy number' },
+  contact: { title: 'How to reach us?', call: 'Call', copy: 'Copy number', copied: 'Number copied' },
   footer: { rights: 'MotorON car service', demo: 'Demo website prepared as a proposal for MotorON.' },
 };
 

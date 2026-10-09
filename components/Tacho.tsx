@@ -49,7 +49,7 @@ export default function Tacho() {
       })}
       <text x={C} y={C - 30} textAnchor="middle" className="unit">1/min ×1000</text>
       {/* centre readout */}
-      <text x={C} y={C + 40} textAnchor="middle" className="on" filter="url(#glow)">ON</text>
+      <text x={C} y={C + 40} textAnchor="middle" className="t-on" filter="url(#glow)">ON</text>
       <text x={C} y={C + 53} textAnchor="middle" className="place">BRIUKHOVYCHI</text>
       {/* needle (drawn pointing right, rotated by CSS) */}
       <g className="needle">

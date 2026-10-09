@@ -17,6 +17,7 @@ export default function ContactButton({ className = 'btn ghost', children }: { c
   const { t } = usePrefs();
   const [open, setOpen] = useState(false);
   const [sheet, setSheet] = useState(false);
+  const [copied, setCopied] = useState(false);
   const box = useRef<HTMLSpanElement>(null);
   const menu = useRef<HTMLSpanElement>(null);
 
@@ -40,7 +41,21 @@ export default function ContactButton({ className = 'btn ghost', children }: { c
     return () => { document.removeEventListener('mousedown', onDoc); document.removeEventListener('keydown', onKey); };
   }, [open]);
 
-  const close = () => setOpen(false);
+  const close = () => { setOpen(false); setCopied(false); };
+
+  // Clipboard API needs permission/HTTPS; fall back to a hidden textarea + execCommand.
+  const copy = async () => {
+    let ok = false;
+    try { await navigator.clipboard.writeText(PHONE_HUMAN); ok = true; } catch {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = PHONE_HUMAN; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); ta.remove();
+      } catch { ok = false; }
+    }
+    setCopied(ok);
+    if (ok) setTimeout(close, 1100);
+  };
   const content = (
     <>
       <span className="cmenu-scrim" onClick={close} />
@@ -49,7 +64,7 @@ export default function ContactButton({ className = 'btn ghost', children }: { c
         <a role="menuitem" href={LINKS.call} onClick={close}><i className="ci call"><Icon name="phone" size={18} /></i>{t.contact.call}</a>
         <a role="menuitem" href={LINKS.viber} onClick={close}><i className="ci viber"><BrandIcon name="viber" size={20} /></i>Viber</a>
         <a role="menuitem" href={LINKS.telegram} target="_blank" rel="noopener" onClick={close}><i className="ci tg"><BrandIcon name="telegram" size={22} /></i>Telegram</a>
-        <button type="button" className="cmenu-copy" onClick={() => { navigator.clipboard?.writeText(PHONE_HUMAN); close(); }}>{t.contact.copy}</button>
+        <button type="button" className={`cmenu-copy${copied ? ' done' : ''}`} onClick={copy}>{copied ? `✓ ${t.contact.copied}` : t.contact.copy}</button>
       </span>
     </>
   );

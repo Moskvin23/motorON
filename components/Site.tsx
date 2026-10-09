@@ -1,16 +1,37 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Icon, { Logo } from './Icon';
 import { usePrefs } from './Prefs';
 import ContactButton from './ContactButton';
 import Tacho from './Tacho';
 import Gallery from './Gallery';
+import DayPicker from './DayPicker';
 import { GEO, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE_HUMAN, RATING, REVIEW_COUNT, reviewsLabel } from '@/lib/i18n';
 
 function Header() {
   const { t, lang, setLang, theme, setTheme } = usePrefs();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const hdr = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    const onDown = (e: PointerEvent) => { if (!hdr.current?.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onDown);
+    return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onDown); };
+  }, [open]);
+  // Close the menu first, then scroll — otherwise the taller open header shifts the target.
+  const go = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const id = e.currentTarget.getAttribute('href');
+    if (!id?.startsWith('#')) return;
+    e.preventDefault();
+    setOpen(false);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+      history.replaceState(null, '', id);
+    }));
+  };
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 10);
     on(); window.addEventListener('scroll', on, { passive: true });
@@ -18,7 +39,7 @@ function Header() {
   }, []);
   const links: [string, string][] = [['#services', t.nav.services], ['#cases', t.nav.cases], ['#gallery', t.nav.gallery], ['#process', t.nav.process], ['#reviews', t.nav.reviews], ['#contacts', t.nav.contacts]];
   return (
-    <header className={`hdr${scrolled ? ' scrolled' : ''}`}>
+    <header ref={hdr} className={`hdr${scrolled ? ' scrolled' : ''}`}>
       <div className="wrap hdr-in">
         <a href="#top" aria-label="MotorON"><Logo /></a>
         <nav className="nav">{links.map(([h, l]) => <a key={h} href={h}>{l}</a>)}</nav>
@@ -36,8 +57,8 @@ function Header() {
       </div>
       {open && (
         <div className="mnav">
-          {links.map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)}>{l}</a>)}
-          <a className="btn" href="#book" onClick={() => setOpen(false)}>{t.nav.book}</a>
+          {links.map(([h, l]) => <a key={h} href={h} onClick={go}>{l}</a>)}
+          <a className="btn" href="#book" onClick={go}>{t.nav.book}</a>
         </div>
       )}
     </header>
@@ -160,7 +181,7 @@ function Reviews() {
 function Booking() {
   const { t } = usePrefs();
   const b = t.book;
-  const [f, setF] = useState({ car: '', year: '', service: '', problem: '', date: '', name: '', phone: '' });
+  const [f, setF] = useState({ car: '', year: '', service: '', problem: '', date: '', part: '', name: '', phone: '' });
   const [err, setErr] = useState<Record<string, string>>({});
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setF({ ...f, [k]: e.target.value });
@@ -177,7 +198,6 @@ function Booking() {
     // Production: POST to a serverless function that forwards the request to the mechanics' Telegram chat.
     setTimeout(() => setState('done'), 900);
   };
-  const today = new Date().toISOString().slice(0, 10);
 
   return (
     <section className="sec book-sec" id="book">
@@ -194,7 +214,7 @@ function Booking() {
               <span className="ok-ico"><Icon name="check" size={30} /></span>
               <h3>{b.okTitle}</h3>
               <p>{b.okText}</p>
-              <button className="btn ghost" onClick={() => { setF({ car: '', year: '', service: '', problem: '', date: '', name: '', phone: '' }); setState('idle'); }}>{b.again}</button>
+              <button className="btn ghost" onClick={() => { setF({ car: '', year: '', service: '', problem: '', date: '', part: '', name: '', phone: '' }); setState('idle'); }}>{b.again}</button>
             </div>
           ) : (
             <form onSubmit={submit} noValidate>
@@ -214,7 +234,7 @@ function Booking() {
                 <label className="fld"><span>{b.name} *</span><input value={f.name} onChange={set('name')} autoComplete="name" aria-invalid={!!err.name} />{err.name && <small>{err.name}</small>}</label>
                 <label className="fld"><span>{b.phone} *</span><input value={f.phone} onChange={set('phone')} type="tel" autoComplete="tel" placeholder={b.phonePh} aria-invalid={!!err.phone} />{err.phone && <small>{err.phone}</small>}</label>
               </div>
-              <label className="fld"><span>{b.date}</span><input type="date" min={today} value={f.date} onChange={set('date')} /></label>
+              <div className="fld"><span>{b.date}</span><DayPicker day={f.date} part={f.part} onDay={(v) => setF({ ...f, date: v })} onPart={(v) => setF({ ...f, part: v })} /></div>
               <button className="btn lg full" disabled={state === 'sending'}>{state === 'sending' ? b.sending : b.submit}</button>
             </form>
           )}

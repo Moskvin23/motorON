@@ -74,8 +74,8 @@ button { cursor: pointer; background: none; border: 0; }
 .num { fill: #e9edf1; font-size: 14px; font-weight: 600; font-family: var(--font-wordmark), sans-serif; }
 .num.red { fill: #e0553f; }
 .unit { fill: #8b939d; font-size: 7px; letter-spacing: .12em; }
-.on { fill: var(--brand); font-size: 19px; font-family: var(--font-wordmark), sans-serif; letter-spacing: .08em; }
-[data-theme='light'] .on { fill: #3ee6b8; }
+.t-on { fill: var(--brand); font-size: 19px; font-family: var(--font-wordmark), sans-serif; letter-spacing: .08em; }
+[data-theme='light'] .t-on { fill: #3ee6b8; }
 .place { fill: #6b737d; font-size: 6px; letter-spacing: .32em; }
 .needle { transform-origin: 110px 110px; transform: rotate(162deg); animation: start 3.4s .4s ease-in-out both, cycle 9s 3.8s ease-in-out infinite; }
 .nd { fill: #f2602f; }
@@ -214,7 +214,23 @@ form { display: flex; flex-direction: column; gap: 14px; }
 .ci.call { background: var(--brand); color: var(--brand-ink); } .ci.viber { background: #7360f2; } .ci.tg { background: #229ed9; }
 .cmenu-copy { margin-top: 4px; padding: 10px; border-radius: 11px; font-size: 13.5px; font-weight: 600; color: var(--mut); border-top: 1px solid var(--line); text-align: center; }
 .cmenu-copy:hover { color: var(--text); }
+.cmenu-copy.done { color: var(--brand); font-weight: 700; }
 .cmenu-scrim { display: none; }
+
+/* day picker */
+.daypick { display: flex; flex-direction: column; gap: 10px; }
+.dp-days { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 6px; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.dp-days button { flex: 0 0 64px; display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 8px 0 7px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); scroll-snap-align: start; transition: border-color .15s, background .15s; }
+.dp-days button span { font-size: 11.5px; font-weight: 700; color: var(--mut); text-transform: capitalize; white-space: nowrap; }
+.dp-days button b { font-size: 20px; line-height: 1.15; }
+.dp-days button small { font-size: 11px; color: var(--faint); }
+.dp-days button:hover { border-color: var(--brand); }
+.dp-days button.on { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+.dp-days button.on span, .dp-days button.on small { color: var(--brand-ink); opacity: .85; }
+.dp-parts { display: flex; gap: 8px; flex-wrap: wrap; }
+.dp-parts button { padding: 8px 14px; border-radius: 100px; border: 1px solid var(--line); background: var(--bg); font-size: 14px; font-weight: 600; color: var(--mut); }
+.dp-parts button:hover { border-color: var(--brand); color: var(--text); }
+.dp-parts button.on { background: var(--brand-soft); border-color: var(--brand); color: var(--brand); }
 
 /* faq & contacts */
 .faq { border: 1px solid var(--line); border-radius: 14px; background: var(--card); margin-bottom: 10px; }
