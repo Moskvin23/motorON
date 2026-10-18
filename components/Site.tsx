@@ -107,7 +107,7 @@ function Promo() {
           </div>
           <div className="promo-price">
             <b>{p.price}</b><span>{p.time}</span>
-            <a className="btn lg" href="#book">{p.book} <Icon name="arrow" size={18} /></a>
+            <a className="btn lg" href="#book" onClick={() => window.dispatchEvent(new CustomEvent('pick-service', { detail: 'promo' }))}>{p.book} <Icon name="arrow" size={18} /></a>
           </div>
         </div>
       </div>
@@ -127,7 +127,7 @@ function Insta() {
         <div className="ig-grid">
           {IG_POSTS.map((id) => (
             <div key={id} className="ig-cell">
-              <iframe title={`Instagram ${id}`} loading="lazy" scrolling="no" allowTransparency
+              <iframe title={`Instagram ${id}`} loading="lazy" scrolling="no"
                 src={`https://www.instagram.com/p/${id}/embed/?hl=uk`} />
             </div>
           ))}
@@ -229,6 +229,11 @@ function Booking() {
   const [hp, setHp] = useState('');
   const b = t.book;
   const [f, setF] = useState({ car: '', year: '', service: '', problem: '', date: '', part: '', name: '', phone: '' });
+  useEffect(() => {
+    const pick = (e: Event) => setF((v) => ({ ...v, service: (e as CustomEvent<string>).detail }));
+    window.addEventListener('pick-service', pick);
+    return () => window.removeEventListener('pick-service', pick);
+  }, []);
   const [err, setErr] = useState<Record<string, string>>({});
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   // Year accepts digits only; phone keeps digits and + ( ) - spaces.
@@ -251,7 +256,7 @@ function Booking() {
     if (!SHEET_URL) { setTimeout(() => setState('done'), 900); return; } // demo mode: nothing is sent
     // Labels are sent in Ukrainian so the sheet reads the same whatever language the visitor used.
     const uk = DICT.uk.book, svc = DICT.uk.services.items;
-    const payload = { ...f, service: f.service === 'other' ? uk.other : f.service ? svc[+f.service].t : '', part: f.part ? uk.parts[+f.part] : '', lang, website: hp };
+    const payload = { ...f, service: f.service === 'other' ? uk.other : f.service === 'promo' ? DICT.uk.promo.title : f.service ? svc[+f.service].t : '', part: f.part ? uk.parts[+f.part] : '', lang, website: hp };
     // text/plain avoids a CORS preflight that Apps Script cannot answer; no-cors gives an opaque reply, so a network error is the only failure we can see.
     fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
       .then(() => setState('done'))
@@ -281,13 +286,14 @@ function Booking() {
                 <label className="fld"><span>{b.car} *</span><input name="car" value={f.car} onChange={set('car')} placeholder={b.carPh} aria-invalid={!!err.car} />{err.car && <small>{b[err.car as 'errCar']}</small>}</label>
                 <label className="fld"><span>{b.year}</span><input value={f.year} onChange={set('year')} inputMode="numeric" maxLength={4} placeholder="2019" /></label>
               </div>
-              <label className="fld"><span>{b.service}</span>
-                <select value={f.service} onChange={set('service')}>
-                  <option value="">{b.choose}</option>
-                  {t.services.items.map((s, i) => <option key={i} value={String(i)}>{s.t}</option>)}
-                  <option value="other">{b.other}</option>
-                </select>
-              </label>
+              <div className="fld"><span>{b.service}</span>
+                <div className="dp-parts svc-chips" role="radiogroup" aria-label={b.service}>
+                  {[['promo', t.promo.title], ...t.services.items.map((s, i) => [String(i), s.t]), ['other', b.other]].map(([v, l]) => (
+                    <button type="button" key={v} role="radio" aria-checked={f.service === v} className={f.service === v ? 'on' : ''}
+                      onClick={() => setF({ ...f, service: f.service === v ? '' : v })}>{l}</button>
+                  ))}
+                </div>
+              </div>
               <label className="fld"><span>{b.problem}</span><textarea rows={3} value={f.problem} onChange={set('problem')} placeholder={b.problemPh} /></label>
               <div className="row2">
                 <label className="fld"><span>{b.name} *</span><input name="name" value={f.name} onChange={set('name')} autoComplete="name" aria-invalid={!!err.name} />{err.name && <small>{b[err.name as 'errCar']}</small>}</label>

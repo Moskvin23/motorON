@@ -16,8 +16,10 @@ export function PrefsProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('dark');
 
   useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get('lang');
     const l = read('motoron.lang');
-    if (l === 'uk' || l === 'en') setLangState(l);
+    if (q === 'uk' || q === 'en') setLangState(q);
+    else if (l === 'uk' || l === 'en') setLangState(l);
     else if (!navigator.language.toLowerCase().startsWith('uk') && !navigator.language.toLowerCase().startsWith('ru')) setLangState('en');
     setThemeState(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
   }, []);
