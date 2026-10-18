@@ -74,9 +74,12 @@ button { cursor: pointer; background: none; border: 0; }
 .num { fill: #e9edf1; font-size: 14px; font-weight: 600; font-family: var(--font-wordmark), sans-serif; }
 .num.red { fill: #e0553f; }
 .unit { fill: #8b939d; font-size: 7px; letter-spacing: .12em; }
-.t-on { fill: var(--brand); font-size: 19px; font-family: var(--font-wordmark), sans-serif; letter-spacing: .08em; }
+.t-word { font-size: 10px; font-family: var(--font-wordmark), sans-serif; letter-spacing: .06em; }
+.t-motor { fill: #e9edf1; }
+.t-on { fill: var(--brand); }
+.t-rule { stroke: var(--brand); stroke-width: .6; opacity: .45; }
 [data-theme='light'] .t-on { fill: #3ee6b8; }
-.place { fill: #6b737d; font-size: 6px; letter-spacing: .32em; }
+.place { fill: #7d8691; font-size: 4.2px; letter-spacing: .3em; }
 .needle { transform-origin: 110px 110px; transform: rotate(162deg); animation: start 3.4s .4s ease-in-out both, cycle 9s 3.8s ease-in-out infinite; }
 .nd { fill: #f2602f; }
 .hub { fill: #15181c; stroke: #3b424b; stroke-width: 2; }
@@ -382,4 +385,33 @@ form { display: flex; flex-direction: column; gap: 14px; }
   .stats b { font-size: 16.5px; }
   .hero h1 { font-size: 31px; }
   .tacho { max-width: 250px; }
+}
+
+/* Promo */
+.promo-sec { padding-top: 0; }
+.promo { display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; align-items: center; padding: 32px; border-radius: 22px; border: 1px solid var(--brand); background: linear-gradient(135deg, var(--brand-soft), var(--card)); }
+.promo h2 { margin: 14px 0 8px; }
+.promo p { color: var(--mut); margin: 0 0 14px; }
+.promo ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.promo li::before { content: '✓'; color: var(--brand); font-weight: 800; margin-right: 10px; }
+.promo-price { display: grid; justify-items: center; gap: 6px; text-align: center; }
+.promo-price b { font-size: 48px; line-height: 1; color: var(--brand); }
+.promo-price span { color: var(--mut); margin-bottom: 10px; }
+
+/* Instagram embeds */
+.ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+/* The embed is cross-origin and always white: crop its header (~54px) and footer, keep only the 4:5 media. */
+.ig-cell { position: relative; aspect-ratio: 100 / 121; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+.ig-cell iframe { position: absolute; left: 0; top: -54px; width: 100%; height: calc(100% + 200px); border: 0; }
+
+/* Review photos */
+.r-photos { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 12px; }
+.r-photos img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; display: block; }
+
+@media (max-width: 900px) {
+  .promo { grid-template-columns: 1fr; padding: 22px; }
+  .ig-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .ig-grid { grid-template-columns: 1fr; }
 }

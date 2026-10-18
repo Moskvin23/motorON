@@ -8,9 +8,9 @@ const font = Manrope({ subsets: ['latin', 'cyrillic'], display: 'swap' });
 const wordmark = Michroma({ weight: '400', subsets: ['latin'], display: 'swap', variable: '--font-wordmark' });
 
 export const metadata: Metadata = {
-  title: 'MotorON СТО Брюховичі — ремонт двигунів, ГРМ, ходової, ТО',
-  description: 'СТО MotorON у Брюховичах: діагностика і ремонт двигунів, ГРМ, ходової, ТО та автоелектрики. Понад 7 років досвіду. Онлайн-запис.',
-  openGraph: { title: 'MotorON СТО — Брюховичі', description: 'Двигуни, ГРМ, ходова, ТО, автоелектрика. Онлайн-запис.', locale: 'uk_UA', type: 'website' },
+  title: 'MotorON СТО Львів-Брюховичі — ремонт двигунів, ГРМ, ходової, ТО',
+  description: 'СТО MotorON у Львові-Брюховичах: діагностика і ремонт двигунів, ГРМ, ходової, ТО та автоелектрики. Понад 7 років досвіду. Онлайн-запис.',
+  openGraph: { title: 'MotorON СТО — Львів-Брюховичі', description: 'Двигуни, ГРМ, ходова, ТО, автоелектрика. Онлайн-запис.', locale: 'uk_UA', type: 'website' },
 };
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: [{ media: '(prefers-color-scheme: dark)', color: '#0b0f0d' }, { media: '(prefers-color-scheme: light)', color: '#f6f8f7' }] };
 

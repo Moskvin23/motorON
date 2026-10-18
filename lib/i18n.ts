@@ -11,6 +11,10 @@ export const MAPS = 'https://www.google.com/maps/dir/?api=1&destination=49.89745
 // Place card opened directly on the Reviews tab.
 export const GOOGLE_REVIEWS = 'https://www.google.com/maps/place/MotorON+%D0%A1%D0%A2%D0%9E/@49.8974506,23.9629972,17z/data=!4m8!3m7!1s0x473adf1c47b48b1b:0x2cc2996db4eca30e!8m2!3d49.8974506!4d23.9629972!9m1!1b1!16s%2Fg%2F11zytg2zp3';
 export const GEO = { lat: 49.8974506, lng: 23.9629972 };
+/** Latest Instagram posts (newest first) shown as official embeds. Add a new shortcode here when a post appears. */
+export const IG_POSTS = ['Dej1Yo3s8Up', 'Deg8asxjNfL', 'Deg11bTDG1w', 'DeHK_vzsRtv', 'Dd_hV8asTYR', 'Dd4mEDejK4R'];
+/** Reviews below this star rating are never shown. */
+export const MIN_REVIEW_STARS = 4;
 /** Google Apps Script web-app URL (see integrations/google-sheet.gs). Empty = demo mode, the form sends nothing. */
 export const SHEET_URL = process.env.NEXT_PUBLIC_SHEET_URL || '';
 
@@ -30,10 +34,10 @@ const uk = {
   nav: { services: 'Послуги', cases: 'Приклади', gallery: 'Фото', process: 'Як працюємо', reviews: 'Відгуки', contacts: 'Контакти', book: 'Записатись' },
   theme: { light: 'Світла тема', dark: 'Темна тема' },
   hero: {
-    badge: 'Нове СТО у Брюховичах',
+    badge: 'Нове СТО · Львів-Брюховичі',
     title1: 'Вирішуємо проблеми,',
     title2: 'а не створюємо їх',
-    lead: 'Двигуни, ГРМ, ходова, ТО та автоелектрика. Понад 7 років практичного досвіду — тепер у Брюховичах, 10 хвилин від Львова.',
+    lead: 'Двигуни, ГРМ, ходова, ТО та автоелектрика. Понад 7 років практичного досвіду — тепер у власному сервісі у Львові-Брюховичах.',
     book: 'Записатись онлайн',
     call: 'Подзвонити',
     stats: [
@@ -55,12 +59,19 @@ const uk = {
     ],
     note: 'Вартість залежить від авто — назвемо ціну після огляду, до початку робіт.',
   },
+  promo: {
+    tag: 'Акція', title: 'Передзимова перевірка авто', price: '499 грн', time: '≈ 30 хвилин',
+    lead: 'Зима близько, а твоє авто готове? ❄️ Перевіримо головне, щоб машина без сюрпризів завелась у мороз.',
+    items: ['Акумулятор — запуск у холод', 'Рідини та підтікання — захист від замерзання', 'Ходова й гальма — безпека на слизькій дорозі', 'Ремені та ролики', 'Обігрів салону'],
+    book: 'Записатись на перевірку',
+  },
+  insta: { title: 'Свіжі дописи з Instagram', lead: 'Реальні ремонти з нашого сервісу.', more: 'Більше в Instagram' },
   cases: {
     title: 'Приклади ремонтів',
     lead: 'Типові історії, з якими до нас приїжджають.',
     items: [
       { tag: 'Ходова', t: 'Сторонній звук одразу після купівлі', p: 'Інше СТО перед покупкою сказало, що з ходовою все гаразд. У нас знайшли причину: обидві передні півосі були в поганому стані.', r: 'Замінили — звук зник.' },
-      { tag: 'Ходова', t: '«Звук тролейбуса» в Hyundai Kona / Kia Niro', p: 'Характерне виття на ходу, через яке власники роками їздять по сервісах.', r: 'Знаходимо джерело звуку й усуваємо причину, а не симптом.' },
+      { tag: 'Електромобілі', t: '«Звук тролейбуса» в Hyundai Kona / Kia Niro', p: 'Типова болячка — знос підшипників редуктора на пробігах 60–100 тис. км: металева стружка дає гул або клацання при наборі швидкості чи скиданні газу.', r: 'Відмили вузол від металевої пудри, поставили підсилені підшипники — тепер тільки тиша.' },
       { tag: 'ТО', t: 'Заміна масла — і знайдений стук', p: 'Клієнт записався на планове ТО. Під час огляду майстри виявили причину стуку в ходовій.', r: 'Проблему помітили до того, як вона стала дорогою.' },
     ],
   },
@@ -69,7 +80,7 @@ const uk = {
     lead: 'Як виглядає сервіс зсередини та що ми робимо з авто.',
     tags: { photo: 'Фото', video: 'Відео', beforeAfter: 'До / Після' },
     items: {
-      shop: { t: 'Наша майстерня в Брюховичах', d: 'Робоча зона, підйомники та обладнання.' },
+      shop: { t: 'Наша майстерня · Львів-Брюховичі', d: 'Робоча зона, підйомники та обладнання.' },
       video: { t: 'Пошук стороннього звуку', d: 'Коротке відео з діагностики ходової.' },
       ba1: { t: 'Заміна півосей', d: 'Зношені деталі та нові після заміни.' },
       lift: { t: 'Авто на підйомнику', d: 'Огляд ходової під час ТО.' },
@@ -93,11 +104,11 @@ const uk = {
     onGoogle: 'у Google',
     all: 'Усі відгуки в Google',
     items: [
-      { n: 'Ігор Л.', t: 'Записався на заміну масла і ТО авто. Гарно і якісно поміняли масло, а головне визначили проблему «стуку» у ходовій. Ретельно усе перевіряють.' },
-      { n: 'Дмитро С.', t: 'Гарна робота, все вчасно, якісно і відповідально.' },
-      { n: 'Павло М.', t: 'Приїхав через сторонній звук після купівлі. Інше СТО сказало, що з ходовою все гаразд, а тут майстри швидко знайшли причину: обидві передні півосі були в поганому стані.' },
-      { n: 'StomatClinic BM', t: 'Давно знаю цих хлопців, хороші майстри і супер, що тепер в Брюховичах. Рекомендую!' },
-    ],
+      { n: 'Ігор Л.', s: 5, t: 'Записався на заміну масла і ТО авто. Гарно і якісно поміняли масло, а головне визначили проблему «стуку» у ходовій. Ретельно усе перевіряють.' },
+      { n: 'Дмитро С.', s: 5, t: 'Гарна робота, все вчасно, якісно і відповідально.' },
+      { n: 'Павло М.', s: 5, t: 'Приїхав через сторонній звук після купівлі. Інше СТО сказало, що з ходовою все гаразд, а тут майстри швидко знайшли причину: обидві передні півосі були в поганому стані.' },
+      { n: 'StomatClinic BM', s: 5, t: 'Давно знаю цих хлопців, хороші майстри і супер, що тепер в Брюховичах. Рекомендую!' },
+    ] as Review[],
   },
   book: {
     title: 'Запис на ремонт',
@@ -117,6 +128,7 @@ const uk = {
     title: 'Часті питання',
     items: [
       { q: 'Скільки коштує ремонт?', a: 'Залежить від авто й несправності. Після діагностики ми називаємо точну вартість і погоджуємо її з вами до початку робіт.' },
+      { q: 'Чи робите передзимову перевірку?', a: 'Так — за 499 грн і приблизно 30 хвилин перевіряємо акумулятор, рідини, ходову й гальма, ремені та обігрів салону.' },
       { q: 'Чи можна приїхати без запису?', a: 'Краще записатися — так ми виділимо час саме під ваше авто. Якщо проблема термінова, телефонуйте.' },
       { q: 'Чи показуєте замінені деталі?', a: 'Так. Старі деталі віддаємо або показуємо, щоб ви бачили, за що платите.' },
       { q: 'Де ви знаходитесь?', a: 'Брюховичі, вулиця Львівська — близько 10 хвилин від Львова. Маршрут є нижче на карті.' },
@@ -130,15 +142,17 @@ const uk = {
 };
 
 type Dict = typeof uk;
+/** One Google review. `s` = stars (1–5); `photos` = files in /public/reviews. */
+export type Review = { n: string; s: number; t: string; photos?: string[] };
 
 const en: Dict = {
   nav: { services: 'Services', cases: 'Examples', gallery: 'Photos', process: 'How we work', reviews: 'Reviews', contacts: 'Contacts', book: 'Book now' },
   theme: { light: 'Light theme', dark: 'Dark theme' },
   hero: {
-    badge: 'New car service in Briukhovychi',
+    badge: 'New car service · Lviv-Briukhovychi',
     title1: 'We fix problems,',
     title2: 'not create them',
-    lead: 'Engines, timing belts, suspension, maintenance and auto electrics. 7+ years of hands-on experience — now in Briukhovychi, 10 minutes from Lviv.',
+    lead: 'Engines, timing belts, suspension, maintenance and auto electrics. 7+ years of hands-on experience — now in our own shop in Lviv-Briukhovychi.',
     book: 'Book online',
     call: 'Call us',
     stats: [
@@ -160,12 +174,19 @@ const en: Dict = {
     ],
     note: 'Price depends on the car — we quote after inspection, before any work starts.',
   },
+  promo: {
+    tag: 'Special offer', title: 'Pre-winter car check', price: '499 UAH', time: '≈ 30 minutes',
+    lead: 'Winter is coming — is your car ready? ❄️ We check the essentials so it starts without surprises in the cold.',
+    items: ['Battery — cold-weather starting', 'Fluids and leaks — freeze protection', 'Suspension and brakes — safety on slippery roads', 'Belts and tensioners', 'Cabin heating'],
+    book: 'Book the check',
+  },
+  insta: { title: 'Latest on Instagram', lead: 'Real repairs from our shop.', more: 'More on Instagram' },
   cases: {
     title: 'Repair examples',
     lead: 'Typical stories our customers come with.',
     items: [
       { tag: 'Suspension', t: 'Strange noise right after buying the car', p: 'Another shop said the suspension was fine before the purchase. We found the cause: both front drive shafts were in bad shape.', r: 'Replaced — the noise is gone.' },
-      { tag: 'Suspension', t: '“Trolleybus sound” in Hyundai Kona / Kia Niro', p: 'A distinctive whine while driving that owners chase from shop to shop for years.', r: 'We find the real source and fix the cause, not the symptom.' },
+      { tag: 'EVs', t: '“Trolleybus sound” in Hyundai Kona / Kia Niro', p: 'A typical weak spot — worn reduction gear bearings at 60–100k km: metal debris causes a hum or clicking when accelerating or lifting off.', r: 'We cleaned the unit of metal dust and fitted reinforced bearings — now it is silent.' },
       { tag: 'Service', t: 'An oil change — and a knock found', p: 'A customer booked routine maintenance. During the inspection our mechanics found what was causing a knock in the suspension.', r: 'Caught before it became expensive.' },
     ],
   },
@@ -174,7 +195,7 @@ const en: Dict = {
     lead: 'What the workshop looks like inside and what we do with cars.',
     tags: { photo: 'Photo', video: 'Video', beforeAfter: 'Before / After' },
     items: {
-      shop: { t: 'Our workshop in Briukhovychi', d: 'Work bays, lifts and equipment.' },
+      shop: { t: 'Our workshop · Lviv-Briukhovychi', d: 'Work bays, lifts and equipment.' },
       video: { t: 'Tracking down a noise', d: 'A short clip from a suspension diagnosis.' },
       ba1: { t: 'Drive shaft replacement', d: 'Worn parts and the new ones after the job.' },
       lift: { t: 'Car on the lift', d: 'Suspension inspection during a service.' },
@@ -198,10 +219,10 @@ const en: Dict = {
     onGoogle: 'on Google',
     all: 'All reviews on Google',
     items: [
-      { n: 'Ihor L.', t: 'Booked an oil change and service. They changed the oil well and, most importantly, found the cause of a “knock” in the suspension. They check everything thoroughly.' },
-      { n: 'Dmytro S.', t: 'Great work — on time, high quality and responsible.' },
-      { n: 'Pavlo M.', t: 'Came in because of a noise after buying the car. Another shop said the suspension was fine, but here they quickly found the cause: both front drive shafts were in bad shape.' },
-      { n: 'StomatClinic BM', t: 'I have known these guys for a long time — good mechanics, and great that they are now in Briukhovychi. Recommended!' },
+      { n: 'Ihor L.', s: 5, t: 'Booked an oil change and service. They changed the oil well and, most importantly, found the cause of a “knock” in the suspension. They check everything thoroughly.' },
+      { n: 'Dmytro S.', s: 5, t: 'Great work — on time, high quality and responsible.' },
+      { n: 'Pavlo M.', s: 5, t: 'Came in because of a noise after buying the car. Another shop said the suspension was fine, but here they quickly found the cause: both front drive shafts were in bad shape.' },
+      { n: 'StomatClinic BM', s: 5, t: 'I have known these guys for a long time — good mechanics, and great that they are now in Briukhovychi. Recommended!' },
     ],
   },
   book: {
@@ -222,6 +243,7 @@ const en: Dict = {
     title: 'FAQ',
     items: [
       { q: 'How much does a repair cost?', a: 'It depends on the car and the fault. After diagnostics we give you an exact price and agree on it before starting.' },
+      { q: 'Do you do a pre-winter check?', a: 'Yes — for 499 UAH in about 30 minutes we check the battery, fluids, suspension and brakes, belts and cabin heating.' },
       { q: 'Can I come without booking?', a: 'Booking is better — we reserve time for your car. If it is urgent, just call.' },
       { q: 'Do you show the replaced parts?', a: 'Yes. We return or show the old parts so you can see what you are paying for.' },
       { q: 'Where are you?', a: 'Briukhovychi, Lvivska street — about 10 minutes from Lviv. Directions are on the map below.' },

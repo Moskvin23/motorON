@@ -6,7 +6,7 @@ import ContactButton from './ContactButton';
 import Tacho from './Tacho';
 import Gallery from './Gallery';
 import DayPicker from './DayPicker';
-import { DICT, GEO, SHEET_URL, GOOGLE_REVIEWS, INSTAGRAM, MAPS, PHONE, PHONE_HUMAN, RATING, REVIEW_COUNT, reviewsLabel } from '@/lib/i18n';
+import { DICT, GEO, SHEET_URL, GOOGLE_REVIEWS, INSTAGRAM, MAPS, IG_POSTS, MIN_REVIEW_STARS, PHONE, PHONE_HUMAN, RATING, REVIEW_COUNT, reviewsLabel } from '@/lib/i18n';
 
 function Header() {
   const { t, lang, setLang, theme, setTheme } = usePrefs();
@@ -92,6 +92,51 @@ function Hero() {
   );
 }
 
+function Promo() {
+  const { t } = usePrefs();
+  const p = t.promo;
+  return (
+    <section className="sec promo-sec" id="promo">
+      <div className="wrap">
+        <div className="promo">
+          <div className="promo-copy">
+            <span className="badge"><i />{p.tag}</span>
+            <h2>{p.title}</h2>
+            <p>{p.lead}</p>
+            <ul>{p.items.map((it) => <li key={it}>{it}</li>)}</ul>
+          </div>
+          <div className="promo-price">
+            <b>{p.price}</b><span>{p.time}</span>
+            <a className="btn lg" href="#book">{p.book} <Icon name="arrow" size={18} /></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Insta() {
+  const { t } = usePrefs();
+  return (
+    <section className="sec" id="insta">
+      <div className="wrap">
+        <div className="sec-head row">
+          <div><h2>{t.insta.title}</h2><p>{t.insta.lead}</p></div>
+          <a className="btn ghost" href={INSTAGRAM} target="_blank" rel="noopener">{t.insta.more} →</a>
+        </div>
+        <div className="ig-grid">
+          {IG_POSTS.map((id) => (
+            <div key={id} className="ig-cell">
+              <iframe title={`Instagram ${id}`} loading="lazy" scrolling="no" allowTransparency
+                src={`https://www.instagram.com/p/${id}/embed/?hl=uk`} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Services() {
   const { t } = usePrefs();
   return (
@@ -165,10 +210,11 @@ function Reviews() {
           </div>
         </div>
         <div className="grid4">
-          {t.reviews.items.map((r) => (
+          {t.reviews.items.filter((r) => r.s >= MIN_REVIEW_STARS).map((r) => (
             <figure key={r.n} className="card review">
-              <span className="stars">★★★★★</span>
+              <span className="stars">{'★'.repeat(r.s)}</span>
               <blockquote>“{r.t}”</blockquote>
+              {r.photos?.length ? <div className="r-photos">{r.photos.map((src) => <a key={src} href={src} target="_blank" rel="noopener"><img src={src} alt="" loading="lazy" /></a>)}</div> : null}
               <figcaption><i>{r.n[0]}</i>{r.n} · Google</figcaption>
             </figure>
           ))}
@@ -274,7 +320,7 @@ function Faq() {
 }
 
 function Contacts() {
-  const { t } = usePrefs();
+  const { t, lang } = usePrefs();
   return (
     <section className="sec alt" id="contacts">
       <div className="wrap contacts">
@@ -288,7 +334,7 @@ function Contacts() {
         </div>
         <div className="map">
           <iframe title="MotorON — map" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-            src={`https://www.openstreetmap.org/export/embed.html?bbox=${GEO.lng - 0.012},${GEO.lat - 0.006},${GEO.lng + 0.012},${GEO.lat + 0.006}&layer=mapnik&marker=${GEO.lat},${GEO.lng}`} />
+            src={`https://maps.google.com/maps?q=${GEO.lat},${GEO.lng}&z=16&hl=${lang === 'en' ? 'en' : 'uk'}&output=embed`} />
         </div>
       </div>
     </section>
@@ -301,7 +347,7 @@ export default function Site() {
     <>
       <Header />
       <main>
-        <Hero /><Services /><Cases /><Gallery /><Process /><Reviews /><Booking /><Faq /><Contacts />
+        <Hero /><Promo /><Services /><Cases /><Gallery /><Insta /><Process /><Reviews /><Booking /><Faq /><Contacts />
       </main>
       <footer className="ftr">
         <div className="wrap ftr-in"><Logo /><span>© 2026 {t.footer.rights}</span><span className="muted">{t.footer.demo}</span></div>

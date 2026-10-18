@@ -49,8 +49,11 @@ export default function Tacho() {
       })}
       <text x={C} y={C - 30} textAnchor="middle" className="unit">1/min ×1000</text>
       {/* centre readout */}
-      <text x={C} y={C + 40} textAnchor="middle" className="t-on" filter="url(#glow)">ON</text>
-      <text x={C} y={C + 53} textAnchor="middle" className="place">BRIUKHOVYCHI</text>
+      <text x={C} y={C + 38} textAnchor="middle" className="t-word">
+        <tspan className="t-motor">MOTOR</tspan><tspan className="t-on">ON</tspan>
+      </text>
+      <line x1={C - 16} y1={C + 43} x2={C + 16} y2={C + 43} className="t-rule" />
+      <text x={C} y={C + 50} textAnchor="middle" className="place">AUTO SERVICE</text>
       {/* needle (drawn pointing right, rotated by CSS) */}
       <g className="needle">
         <path d={`M${C - 16} ${C - 2.2} L${C + 90} ${C - 0.6} L${C + 90} ${C + 0.6} L${C - 16} ${C + 2.2} Z`} className="nd" filter="url(#glow)" />
