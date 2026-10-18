@@ -18,6 +18,8 @@ const P: Record<string, string> = {
   menu: 'M4 7h16 M4 12h16 M4 17h16',
   close: 'M6 6l12 12 M18 6L6 18',
   arrow: 'M5 12h14 M13 6l6 6-6 6',
+  ev: 'M9 2v4 M15 2v4 M6 6h12v4a6 6 0 0 1-12 0V6Z M12 16v6 M13 9l-2 3h2l-2 3',
+  box: 'M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3Z M4 7.5l8 4.5 8-4.5 M12 12v9',
 };
 
 export default function Icon({ name, size = 22, fill = false }: { name: string; size?: number; fill?: boolean }) {
@@ -29,7 +31,15 @@ export default function Icon({ name, size = 22, fill = false }: { name: string; 
 }
 
 /** Messenger glyphs drawn in white for the coloured Viber / Telegram tiles. */
-export function BrandIcon({ name, size = 20 }: { name: 'viber' | 'telegram'; size?: number }) {
+export function BrandIcon({ name, size = 20 }: { name: 'viber' | 'telegram' | 'whatsapp'; size?: number }) {
+  if (name === 'whatsapp') {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinejoin="round" />
+        <path fill="#fff" d="M9.2 7.8c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.3.6.8 1.2 1.3 1.6.5.5 1.1.8 1.7 1.1.2.1.4 0 .5-.1l.6-.7c.2-.2.3-.2.6-.1l1.5.7c.2.1.4.2.4.3.1.3 0 .9-.3 1.3-.4.4-1 .8-1.7.8-.9 0-2.5-.5-4-1.9-1.3-1.2-2.1-2.7-2.3-3.6-.2-.8.1-1.6.6-2.1.2-.3.4-.4.5-.4Z" />
+      </svg>
+    );
+  }
   if (name === 'telegram') {
     return (
       <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">

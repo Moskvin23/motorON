@@ -43,7 +43,7 @@ const uk = {
     stats: [
       { v: '5.0 ★', l: 'GOOGLE_COUNT' },
       { v: '7+ років', l: 'практичного досвіду' },
-      { v: '6 напрямків', l: 'від ТО до двигуна' },
+      { v: '9 напрямків', l: 'від ТО до двигуна' },
     ],
   },
   services: {
@@ -52,10 +52,13 @@ const uk = {
     items: [
       { icon: 'engine', t: 'Двигун', d: 'Діагностика, ремонт і капітальний ремонт двигунів, усунення стуків, вібрацій і втрат потужності.' },
       { icon: 'belt', t: 'ГРМ', d: 'Заміна ременя або ланцюга ГРМ, роликів і помпи — за регламентом або при перших симптомах.' },
-      { icon: 'shock', t: 'Ходова', d: 'Пошук сторонніх звуків, заміна півосей, амортизаторів, сайлентблоків, кульових опор.' },
+      { icon: 'shock', t: 'Ходова та гальма', d: 'Пошук сторонніх звуків, заміна півосей, амортизаторів, сайлентблоків, кульових опор, гальмівних дисків і колодок.' },
       { icon: 'oil', t: 'Технічне обслуговування', d: 'Заміна масла й фільтрів, перевірка рідин і гальм, огляд ходової під час кожного ТО.' },
       { icon: 'bolt', t: 'Автоелектрика', d: 'Діагностика помилок, проводка, стартер, генератор, датчики та освітлення.' },
       { icon: 'scan', t: 'Комп’ютерна діагностика', d: 'Зчитування помилок, аналіз параметрів і зрозумілий звіт про стан авто.' },
+      { icon: 'ev', t: 'Електромобілі', d: 'Ремонт і сервіс електромобілів та гібридів: редуктори, ходова, гальма, діагностика систем.' },
+      { icon: 'wheel', t: 'Шиномонтаж', d: 'Сезонна заміна шин, монтаж і балансування коліс.' },
+      { icon: 'box', t: 'Автозапчастини', d: 'Підберемо й продамо потрібні запчастини — оригінал або якісні аналоги.' },
     ],
     note: 'Вартість залежить від авто — назвемо ціну після огляду, до початку робіт.',
   },
@@ -158,7 +161,7 @@ const en: Dict = {
     stats: [
       { v: '5.0 ★', l: 'GOOGLE_COUNT' },
       { v: '7+ years', l: 'of hands-on experience' },
-      { v: '6 areas', l: 'from service to engine' },
+      { v: '9 areas', l: 'from service to engine' },
     ],
   },
   services: {
@@ -167,10 +170,13 @@ const en: Dict = {
     items: [
       { icon: 'engine', t: 'Engine', d: 'Diagnostics, repair and rebuilds; knocks, vibrations and loss of power.' },
       { icon: 'belt', t: 'Timing belt / chain', d: 'Belt or chain replacement with tensioners and water pump — on schedule or at the first symptoms.' },
-      { icon: 'shock', t: 'Suspension', d: 'Tracking down noises, replacing drive shafts, shock absorbers, bushings and ball joints.' },
+      { icon: 'shock', t: 'Suspension & brakes', d: 'Tracking down noises, replacing drive shafts, shock absorbers, bushings, ball joints, brake discs and pads.' },
       { icon: 'oil', t: 'Maintenance', d: 'Oil and filter changes, fluids and brakes check, suspension inspection at every service.' },
       { icon: 'bolt', t: 'Auto electrics', d: 'Fault codes, wiring, starter, alternator, sensors and lighting.' },
       { icon: 'scan', t: 'Computer diagnostics', d: 'Reading fault codes, live data analysis and a clear report on your car.' },
+      { icon: 'ev', t: 'Electric vehicles', d: 'Repair and service of EVs and hybrids: reduction gears, suspension, brakes, system diagnostics.' },
+      { icon: 'wheel', t: 'Tyre service', d: 'Seasonal tyre change, fitting and wheel balancing.' },
+      { icon: 'box', t: 'Car parts', d: 'We source and sell the parts you need — genuine or quality alternatives.' },
     ],
     note: 'Price depends on the car — we quote after inspection, before any work starts.',
   },

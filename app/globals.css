@@ -214,7 +214,7 @@ form { display: flex; flex-direction: column; gap: 14px; }
 .cmenu a { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 11px; font-weight: 700; font-size: 15.5px; }
 .cmenu a:hover, .cmenu a:focus-visible { background: var(--brand-soft); outline: none; }
 .ci { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: #fff; flex: 0 0 36px; }
-.ci.call { background: var(--brand); color: var(--brand-ink); } .ci.viber { background: #7360f2; } .ci.tg { background: #229ed9; }
+.ci.call { background: var(--brand); color: var(--brand-ink); } .ci.viber { background: #7360f2; } .ci.tg { background: #229ed9; } .ci.wa { background: #25d366; }
 .cmenu-copy { margin-top: 4px; padding: 10px; border-radius: 11px; font-size: 13.5px; font-weight: 600; color: var(--mut); border-top: 1px solid var(--line); text-align: center; }
 .cmenu-copy:hover { color: var(--text); }
 .cmenu-copy.done { color: var(--brand); font-weight: 700; }

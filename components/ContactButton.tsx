@@ -9,9 +9,10 @@ const LINKS = {
   call: `tel:${PHONE}`,
   viber: `viber://chat?number=${encodeURIComponent(PHONE)}`,
   telegram: `https://t.me/${PHONE}`,
+  whatsapp: `https://wa.me/${PHONE.replace('+', '')}`,
 };
 
-/** Phone button that lets the visitor choose: call, Viber or Telegram.
+/** Phone button that lets the visitor choose: call, Viber, Telegram or WhatsApp.
  *  Desktop: dropdown under the button. Phone: bottom sheet rendered into <body>. */
 export default function ContactButton({ className = 'btn ghost', children }: { className?: string; children?: React.ReactNode }) {
   const { t } = usePrefs();
@@ -64,6 +65,7 @@ export default function ContactButton({ className = 'btn ghost', children }: { c
         <a role="menuitem" href={LINKS.call} onClick={close}><i className="ci call"><Icon name="phone" size={18} /></i>{t.contact.call}</a>
         <a role="menuitem" href={LINKS.viber} onClick={close}><i className="ci viber"><BrandIcon name="viber" size={20} /></i>Viber</a>
         <a role="menuitem" href={LINKS.telegram} target="_blank" rel="noopener" onClick={close}><i className="ci tg"><BrandIcon name="telegram" size={22} /></i>Telegram</a>
+        <a role="menuitem" href={LINKS.whatsapp} target="_blank" rel="noopener" onClick={close}><i className="ci wa"><BrandIcon name="whatsapp" size={20} /></i>WhatsApp</a>
         <button type="button" className={`cmenu-copy${copied ? ' done' : ''}`} onClick={copy}>{copied ? `✓ ${t.contact.copied}` : t.contact.copy}</button>
       </span>
     </>
